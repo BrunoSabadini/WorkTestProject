@@ -32,14 +32,16 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
 
   Widget listTile(String title, double trailingValue,
       {Widget? subtitle,
-      String whatToReturn = "value",
+      String whatStringReturn = "R\$",
       num? backgroundColorVerification}) {
     return ListTile(
       title: Text(title),
       subtitle: subtitle,
       trailing: Provider.of<ShowHideController>(context, listen: true)
           .greenOrRedBackground(
-              text: numberFormatConversion(trailingValue, whatToReturn),
+              text: Provider.of<ShowHideController>(context, listen: true)
+                  .numberFormatConversion(trailingValue,
+                      whatStringReturn: whatStringReturn),
               backgroundColorVerification: backgroundColorVerification),
       contentPadding:
           const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
@@ -77,8 +79,8 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
           ),
           listTile("Valor Atual", widget.detailPage.value),
           listTile("Cap de mercado", widget.detailPage.capMercado,
-              whatToReturn: "percentage",
-              backgroundColorVerification: widget.detailPage.capMercado),
+              backgroundColorVerification: widget.detailPage.capMercado,
+              whatStringReturn: ""),
           listTile("Valor mínimo", widget.detailPage.minValue),
           listTile("Valor máximo", widget.detailPage.maxValue),
           SizedBox(
