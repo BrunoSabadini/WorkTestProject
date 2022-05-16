@@ -18,7 +18,8 @@ class HomeScreenStructureState extends State<HomeScreenStructureWidget> {
       supportedLocales: L10n.all,
       onGenerateRoute: RouteGenerator.generateRoute,
       home: Scaffold(
-          body: ListOrganizationWidget(), bottomNavigationBar: TabBarWidget()),
+          body: ListOrganizationWidget(),
+          bottomNavigationBar: const TabBarWidget()),
     );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:work_project/Models/CoinsLabel.dart';
-import 'package:work_project/CoinsData.dart';
+import 'package:work_project/Models/WalletCoinsLabel.dart';
+import 'package:work_project/CoinsDataToFutureAPI.dart';
 import 'package:work_project/WalletPage/Wallet.dart';
 
 class ListOrganizationState extends State<ListOrganizationWidget> {

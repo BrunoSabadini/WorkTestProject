@@ -6,5 +6,5 @@ import 'package:work_project/StateController.dart';
 void main() {
   runApp(ChangeNotifierProvider(
       create: (context) => ShowHideController(),
-      child: HomeScreenStructureWidget()));
+      child: const HomeScreenStructureWidget()));
 }

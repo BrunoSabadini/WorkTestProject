@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:work_project/AmountPercentage.dart';
-import 'package:work_project/CoinsData.dart';
+import 'package:work_project/CoinsDataToFutureAPI.dart';
 import 'package:work_project/StateController.dart';
 
 class CoinsLabelModelWidget extends StatefulWidget {

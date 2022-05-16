@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:work_project/CoinsData.dart';
+import 'package:work_project/CoinsDataToFutureAPI.dart';
 import 'package:work_project/Models/ChartModel.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:work_project/StateController.dart';
@@ -61,6 +61,7 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
                   color: Colors.black)),
         ),
         body: ListView(children: <Widget>[
+          Text(widget.coin.name),
           ChartModelWidget(),
           const Padding(
               padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
