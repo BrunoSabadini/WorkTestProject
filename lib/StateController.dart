@@ -73,8 +73,10 @@ class ShowHideController with ChangeNotifier {
     }
   }
 
-  String numberFormatConversion(double val) {
-    return intl.NumberFormat.currency(locale: 'pt_BR', name: "R\$").format(val);
+  String numberFormatConversion(double value,
+      {String whatStringReturn = "R\$"}) {
+    return intl.NumberFormat.currency(locale: 'pt_BR', name: whatStringReturn)
+        .format(value);
   }
 
   profitFunc() {
