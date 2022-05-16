@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:work_project/Models/WalletCoinsLabel.dart';
+import 'package:work_project/Models/WalletCoinsLabels.dart';
 import 'package:work_project/CoinsDataToFutureAPI.dart';
 import 'package:work_project/WalletPage/Wallet.dart';
 

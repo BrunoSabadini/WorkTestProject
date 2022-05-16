@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:work_project/CoinsDataToFutureAPI.dart';
-import 'package:work_project/HomeScreen.dart';
-import '../Models/ChartModel.dart';
-import 'Models/DetailsPageModel.dart';
+import 'Models/WalletDetailsPageModel.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     // Getting arguments passed in while calling Navigator.pushNamed
     final args = settings.arguments;
-    DateTime p = DateTime.parse('2019-10-30T20:30:00');
     switch (settings.name) {
       case '/ethereum':
         return MaterialPageRoute(
             builder: (_) => DetailsPageModelWidget(
                 coin: Coins(
                     abreviation: 'tirar',
-                    name: "Moead Ethereum",
+                    name: "Ethereum",
                     icon: Icons.currency_bitcoin),
                 detailPage: DetailPage(
                     coinName: "Ethereum",
@@ -28,7 +25,7 @@ class RouteGenerator {
             builder: (_) => DetailsPageModelWidget(
                 coin: Coins(
                     abreviation: 'tirar',
-                    name: "Moead Litecoin",
+                    name: "Litecoin",
                     icon: Icons.currency_bitcoin),
                 detailPage: DetailPage(
                     coinName: "Litecoin",
@@ -41,7 +38,7 @@ class RouteGenerator {
           builder: (_) => DetailsPageModelWidget(
             coin: Coins(
                 abreviation: 'tirar',
-                name: "Moead Bitcoin",
+                name: "Bitcoin",
                 icon: Icons.currency_bitcoin),
             detailPage: DetailPage(
                 coinName: "Bitcoin",
@@ -62,10 +59,10 @@ Route<dynamic> _errorRoute() {
   return MaterialPageRoute(builder: (_) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Error'),
+        title: Text('Rota não encontrada'),
       ),
       body: Center(
-        child: Text('ERROR'),
+        child: Text('A sua rota não foi definida corretamente'),
       ),
     );
   });

@@ -61,7 +61,12 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
                   color: Colors.black)),
         ),
         body: ListView(children: <Widget>[
-          Text(widget.coin.name),
+          Text("Moeda" " " + widget.coin.name,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black)),
           ChartModelWidget(),
           const Padding(
               padding: EdgeInsets.fromLTRB(20, 0, 0, 0),

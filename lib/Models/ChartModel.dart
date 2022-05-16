@@ -67,7 +67,7 @@ class ChartModelState extends State<ChartModelWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: const EdgeInsets.only(top: 40.0, right: 25, left: 25),
+        margin: const EdgeInsets.only(top: 20.0, right: 25, left: 25),
         height: 300,
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: Column(

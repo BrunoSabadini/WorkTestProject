@@ -4,7 +4,7 @@ import 'package:intl/intl.dart' as intl;
 class ShowHideController with ChangeNotifier {
   IconData eyeShow = Icons.visibility_rounded;
   IconData eyeHide = Icons.visibility_off_rounded;
-  bool showHide = true;
+  bool showHide = false;
   String showWallet = "R\$ 87.000,00";
   String hideWallet = "----------------";
   String profit = "+R\$ 100,00";
