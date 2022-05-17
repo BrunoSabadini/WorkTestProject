@@ -38,13 +38,12 @@ class CoinsLabelModelState extends State<CoinsLabelModelWidget> {
           title: Text(widget.coin.abreviation),
           subtitle: Text(widget.coin.name),
           trailing: Column(children: [
-            Text(Provider.of<ShowHideController>(context, listen: true)
+            Text(Provider.of<StateController>(context, listen: true)
                 .amountFunc(widget.coin.amount)),
-            (Provider.of<ShowHideController>(context, listen: true)
+            (Provider.of<StateController>(context, listen: true)
                 .greenOrRedBackground(
                     text: "${widget.coin.variation}",
                     backgroundColorVerification: widget.coin.variation))
-            // myWidget("+" + widget.percentage.toString() + "%")
           ]),
           isThreeLine: true,
           contentPadding:

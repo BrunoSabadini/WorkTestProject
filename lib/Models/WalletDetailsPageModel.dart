@@ -37,9 +37,9 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
     return ListTile(
       title: Text(title),
       subtitle: subtitle,
-      trailing: Provider.of<ShowHideController>(context, listen: true)
+      trailing: Provider.of<StateController>(context, listen: true)
           .greenOrRedBackground(
-              text: Provider.of<ShowHideController>(context, listen: true)
+              text: Provider.of<StateController>(context, listen: true)
                   .numberFormatConversion(trailingValue,
                       whatStringReturn: whatStringReturn),
               backgroundColorVerification: backgroundColorVerification),

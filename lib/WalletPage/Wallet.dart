@@ -30,13 +30,11 @@ class WalletAmountState extends State<WalletAmountWidget> {
                       style: const TextStyle(
                           fontSize: 29, fontWeight: FontWeight.bold))),
               IconButton(
-                icon: Icon(
-                    Provider.of<ShowHideController>(context, listen: true)
-                        .eyefunc()),
+                icon: Icon(Provider.of<StateController>(context, listen: true)
+                    .eyefunc()),
                 tooltip: 'HideWalletAmount',
-                onPressed:
-                    Provider.of<ShowHideController>(context, listen: true)
-                        .switchShowHide,
+                onPressed: Provider.of<StateController>(context, listen: true)
+                    .switchShowHide,
               ),
             ],
           ),
@@ -44,7 +42,7 @@ class WalletAmountState extends State<WalletAmountWidget> {
           Row(children: [
             Expanded(
                 child: Text(
-                    Provider.of<ShowHideController>(context, listen: true)
+                    Provider.of<StateController>(context, listen: true)
                         .amountFunc(widget.coin.walletAmount),
                     textAlign: TextAlign.left,
                     style: const TextStyle(
@@ -62,10 +60,10 @@ class WalletAmountState extends State<WalletAmountWidget> {
             children: [
               Expanded(
                   child: Text(
-                      Provider.of<ShowHideController>(context, listen: true)
+                      Provider.of<StateController>(context, listen: true)
                               .profitFunc() +
                           " " +
-                          Provider.of<ShowHideController>(context, listen: true)
+                          Provider.of<StateController>(context, listen: true)
                               .remunerationFunc(),
                       textAlign: TextAlign.left,
                       style: const TextStyle(fontSize: 19)))
