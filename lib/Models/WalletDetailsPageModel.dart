@@ -17,19 +17,6 @@ class DetailsPageModelWidget extends StatefulWidget {
 }
 
 class DetailsPageModelState extends State<DetailsPageModelWidget> {
-  String numberFormatConversion(double val, String whatToReturn) {
-    if (whatToReturn == "value") {
-      return intl.NumberFormat.currency(locale: 'pt_BR', name: "R\$")
-          .format(val);
-    }
-    if (whatToReturn == "percentage") {
-      return intl.NumberFormat.currency(locale: 'pt_BR', name: "%").format(val);
-    } else {
-      return intl.NumberFormat.currency(locale: 'pt_BR', name: "R\$")
-          .format(val);
-    }
-  }
-
   Widget listTile(String title, double trailingValue,
       {Widget? subtitle,
       String whatStringReturn = "R\$",
@@ -52,7 +39,7 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: const Color.fromARGB(80, 255, 255, 255),
+          backgroundColor: Color.fromARGB(80, 11, 10, 10),
           title: const Text('Detalhes',
               textAlign: TextAlign.left,
               style: TextStyle(
@@ -89,19 +76,9 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
               whatStringReturn: ""),
           listTile("Valor mínimo", widget.detailPage.minValue),
           listTile("Valor máximo", widget.detailPage.maxValue),
-          SizedBox(
-            width: 30,
-            height: 50,
-            child: ElevatedButton(
-              child: const Text('Converter moeda'),
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                  primary: const Color.fromARGB(255, 221, 48, 85),
-                  padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                  textStyle: const TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.bold)),
-            ),
-          )
+          Provider.of<StateController>(context, listen: true).elevatedButton(
+              context, "Converter moeda",
+              routeNavigator: "/conversion"),
         ]));
   }
 }

@@ -52,6 +52,31 @@ class StateController with ChangeNotifier {
     }
   }
 
+  Widget elevatedButton(
+    BuildContext context,
+    String text, {
+    Color backgroundButtonColor = const Color.fromARGB(255, 221, 48, 85),
+    Color textButtonColor = const Color.fromARGB(255, 255, 255, 255),
+    double width = 30,
+    double height = 50,
+    double fontSize = 20,
+    String routeNavigator = "Go to Error Screen",
+  }) {
+    return ElevatedButton(
+      child: Text(text),
+      onPressed: () {
+        Navigator.of(context, rootNavigator: true).pushNamed(routeNavigator);
+      },
+      style: ElevatedButton.styleFrom(
+          onPrimary: textButtonColor,
+          primary: backgroundButtonColor,
+          textStyle: TextStyle(
+            fontSize: fontSize,
+            fontWeight: FontWeight.bold,
+          )),
+    );
+  }
+
   void switchShowHide() {
     showHide = !showHide;
     notifyListeners();

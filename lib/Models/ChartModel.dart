@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -11,6 +13,7 @@ class ChartModelWidget extends StatefulWidget {
 class ChartModelState extends State<ChartModelWidget> {
   List<ChartSampleData> chartData = <ChartSampleData>[];
   bool changeChartType = true;
+  List randomNumber = [];
 
   @override
   initState() {
@@ -20,15 +23,16 @@ class ChartModelState extends State<ChartModelWidget> {
 
   List<ChartSampleData> dateFilter(int numberOfSpots) {
     final DateTime nowTime = DateTime.now();
-    double doubleInitial = 0;
     List<ChartSampleData> test = <ChartSampleData>[];
 
     for (var i = 0; i < numberOfSpots; i++) {
-      double doubleAdd = doubleInitial + i;
+      var randomNumberGenerator = Random();
       final date = nowTime.subtract(Duration(days: i));
 
-      final ChartSampleData chart = ChartSampleData(x: date, yValue: doubleAdd);
+      final ChartSampleData chart = ChartSampleData(
+          x: date, yValue: randomNumberGenerator.nextInt(1000).toDouble());
       test.add(chart);
+      randomNumber.add(randomNumberGenerator);
     }
     return test;
   }
