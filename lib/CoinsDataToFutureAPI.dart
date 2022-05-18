@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class Coins {
   String abreviation;
   String name;
-  double walletAmount = 1450000.00;
+  double walletAmount;
+  double bitcoinAmount;
   double amount = 34000.00;
   double variation = 8.4;
   double capMercado = -7;
@@ -11,6 +12,8 @@ class Coins {
   bool animate = true;
   Coins(
       {Key? key,
+      this.walletAmount = 0,
+      this.bitcoinAmount = 0,
       required this.abreviation,
       required this.name,
       required this.icon});
