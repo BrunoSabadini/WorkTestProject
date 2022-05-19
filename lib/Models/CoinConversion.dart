@@ -12,31 +12,12 @@ class CoinsConversionWidget extends StatefulWidget {
 class CoinsConversionState extends State<CoinsConversionWidget> {
   String dropdownvalue = 'Bitcoin';
   dynamic textFieldConversionAmount = TextEditingController();
-  double percentageee = 0;
 
   var items = [
     'Bitcoin',
     'Ethereum',
     'Litecoin',
   ];
-
-  coinAmountConversion() {
-    if (percentageee == 25) {
-      textFieldConversionAmount = textFieldConversionAmount * 0.25;
-      return;
-    }
-    if (percentageee == 50) {
-      return;
-    }
-    if (percentageee == 75) {
-      return;
-    }
-    if (percentageee == 100) {
-      return;
-    } else {
-      print(percentageee);
-    }
-  }
 
   Widget percetageToConvertCoin(double percentage) {
     return Center(
@@ -45,8 +26,10 @@ class CoinsConversionState extends State<CoinsConversionWidget> {
             child: Material(
                 child: InkWell(
                     onTap: () {
-                      percentageee = percentage;
-                      coinAmountConversion();
+                      Provider.of<StateController>(context, listen: false)
+                          .percentageToConvert = percentage;
+                      Provider.of<StateController>(context, listen: false)
+                          .coinAmountConversion();
                     },
                     child: Container(
                         child: Text(
@@ -123,13 +106,11 @@ class CoinsConversionState extends State<CoinsConversionWidget> {
         Spacer(),
         Expanded(
             child: Provider.of<StateController>(context, listen: true)
-                .elevatedButton(
-          context,
-          "Cancelar",
-          width: double.infinity,
-          backgroundButtonColor: Color.fromARGB(255, 255, 255, 255),
-          textButtonColor: const Color.fromARGB(255, 221, 48, 85),
-        )),
+                .elevatedButton(context, "Cancelar",
+                    width: double.infinity,
+                    backgroundButtonColor: Color.fromARGB(255, 255, 255, 255),
+                    textButtonColor: const Color.fromARGB(255, 221, 48, 85),
+                    routeNavigator: '/bitcoin')),
         Expanded(
             child: Provider.of<StateController>(context, listen: true)
                 .elevatedButton(
