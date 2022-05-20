@@ -110,38 +110,43 @@ class CoinsConversionState extends State<CoinsConversionWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: ListView(children: <Widget>[
-      textTitles("Conversão de moeda", fontsize: 30),
-      Padding(
-          padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-          child: textTitles("Converter de:")),
-      dropdownButton(selectWichCoinConvert, selectWichCoinConvert),
-      conversionField(textselectWichCoinConvert),
-      Row(children: [
-        Expanded(child: percetageToConvertCoin(25)),
-        Expanded(child: percetageToConvertCoin(50)),
-        Expanded(child: percetageToConvertCoin(75)),
-        Expanded(child: percetageToConvertCoin(100))
-      ]),
-      textTitles("Para receber em:"),
-      dropdownButton(selectToWichCoinConvert, selectToWichCoinConvert),
-      conversionField(textToWhatCoinWillBeConverted),
-      Row(children: [
-        Spacer(),
-        Expanded(
-            child: Provider.of<StateController>(context, listen: true)
-                .elevatedButton(context, "Cancelar",
-                    width: double.infinity,
-                    backgroundButtonColor: Color.fromARGB(255, 255, 255, 255),
-                    textButtonColor: const Color.fromARGB(255, 221, 48, 85),
-                    routeNavigator: '/bitcoin')),
-        Expanded(
-            child: Provider.of<StateController>(context, listen: true)
-                .elevatedButton(context, "Confirmar",
-                    width: double.infinity,
-                    routeNavigator: '/completedConversion')),
-        Spacer(),
-      ]),
-    ]));
+        body: Center(
+            child: ListView(
+                shrinkWrap: true,
+                padding: const EdgeInsets.all(20.0),
+                children: <Widget>[
+          textTitles("Conversão de moeda", fontsize: 30),
+          Padding(
+              padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+              child: textTitles("Converter de:")),
+          dropdownButton(selectWichCoinConvert, selectWichCoinConvert),
+          conversionField(textselectWichCoinConvert),
+          Row(children: [
+            Expanded(child: percetageToConvertCoin(25)),
+            Expanded(child: percetageToConvertCoin(50)),
+            Expanded(child: percetageToConvertCoin(75)),
+            Expanded(child: percetageToConvertCoin(100))
+          ]),
+          textTitles("Para receber em:"),
+          dropdownButton(selectToWichCoinConvert, selectToWichCoinConvert),
+          conversionField(textToWhatCoinWillBeConverted),
+          Row(children: [
+            Spacer(),
+            Expanded(
+                child: Provider.of<StateController>(context, listen: true)
+                    .elevatedButton(context, "Cancelar",
+                        width: double.infinity,
+                        backgroundButtonColor:
+                            Color.fromARGB(255, 255, 255, 255),
+                        textButtonColor: const Color.fromARGB(255, 221, 48, 85),
+                        routeNavigator: '/bitcoin')),
+            Expanded(
+                child: Provider.of<StateController>(context, listen: true)
+                    .elevatedButton(context, "Confirmar",
+                        width: double.infinity,
+                        routeNavigator: '/completedConversion')),
+            Spacer(),
+          ]),
+        ])));
   }
 }

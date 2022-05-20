@@ -54,7 +54,7 @@ class RouteGenerator {
       case '/conversion':
         return MaterialPageRoute(builder: (_) => CoinsConversionWidget());
       case '/completedConversion':
-        return MaterialPageRoute(builder: (_) => TabBarState());
+        return MaterialPageRoute(builder: (_) => CompletedConversionScreen());
     }
     return _errorRoute();
     // If there is no such named route in the switch statement
