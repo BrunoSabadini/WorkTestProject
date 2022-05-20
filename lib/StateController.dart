@@ -1,3 +1,5 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 
@@ -9,7 +11,69 @@ class StateController with ChangeNotifier {
   String hideWallet = "----------------";
   String profit = "+R\$ 100,00";
   String remuneration = "(100% do CDI)";
-  double amount = 50000.00;
+  double bitcoinAmount = 50000.00;
+  double litecoinAmount = 50000.00;
+  double ethereumAmount = 50000.00;
+  String pickWhichCoinConvert = "aa";
+  double percentageToConvert = 0;
+
+// leading: Icon(widget.coin.icon, size: 35),
+  Widget listTile(
+    String title,
+    double trailingValue, {
+    Widget? subtitle,
+    String whatStringReturn = "R\$",
+    num? backgroundColorVerification,
+    String? textTest,
+    Icon? icon,
+  }) {
+    return ListTile(
+      leading: icon,
+      title: Text(title),
+      subtitle: subtitle,
+      trailing: greenOrRedBackground(
+          text: numberFormatConversion(trailingValue,
+              whatStringReturn: whatStringReturn),
+          backgroundColorVerification: backgroundColorVerification),
+      contentPadding:
+          const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+    );
+  }
+
+// 'Bitcoin',
+//     'Ethereum',
+//     'Litecoin',
+
+  wichCoinConvert() {
+    if (pickWhichCoinConvert == 'Bitcoin') {
+      return bitcoinAmount;
+    }
+    if (pickWhichCoinConvert == 'Ethereum') {
+      return ethereumAmount;
+    }
+    if (pickWhichCoinConvert == 'Litecoin') {
+      return ethereumAmount;
+    } else {
+      return print("Correct the coin conversion");
+    }
+  }
+
+  double coinAmountConversion() {
+    if (percentageToConvert == 25) {
+      return wichCoinConvert() * 0.25;
+    }
+    if (percentageToConvert == 50) {
+      return wichCoinConvert() * 0.50;
+    }
+    if (percentageToConvert == 75) {
+      return wichCoinConvert() * 0.75;
+    }
+    if (percentageToConvert == 100) {
+      return wichCoinConvert() * 1;
+    } else {
+      return 0;
+    }
+  }
 
   Widget greenOrRedBackground(
       {String text = "", num? backgroundColorVerification}) {
@@ -90,9 +154,9 @@ class StateController with ChangeNotifier {
     }
   }
 
-  amountFunc(double amount) {
+  amountFunc(double bitcoinAmount) {
     if (showHide == false) {
-      return numberFormatConversion(amount);
+      return numberFormatConversion(bitcoinAmount);
     } else {
       return hideWallet;
     }

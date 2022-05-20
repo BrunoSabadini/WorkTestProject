@@ -5,7 +5,19 @@ import 'package:work_project/TabBar.dart';
 import 'package:work_project/l10n/app_localizations.dart';
 import 'package:work_project/routeGenerator.dart';
 
+import '../StateController.dart';
+
 class HomeScreenStructureState extends State<HomeScreenStructureWidget> {
+  final controller = StateController();
+
+  @override
+  void initState() {
+    super.initState();
+    controller.addListener(() {
+      setState(() {});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

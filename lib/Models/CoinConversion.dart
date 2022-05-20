@@ -10,8 +10,12 @@ class CoinsConversionWidget extends StatefulWidget {
 }
 
 class CoinsConversionState extends State<CoinsConversionWidget> {
-  String dropdownvalue = 'Bitcoin';
+  String selectWichCoinConvert = 'Bitcoin';
+  String selectToWichCoinConvert = 'Bitcoin';
   dynamic textFieldConversionAmount = TextEditingController();
+  double coinAmountToReturnAccordingToPercentage = 0;
+  String textselectWichCoinConvert = "Montante a ser convertido";
+  String textToWhatCoinWillBeConverted = "Montante após conversão";
 
   var items = [
     'Bitcoin',
@@ -19,7 +23,12 @@ class CoinsConversionState extends State<CoinsConversionWidget> {
     'Litecoin',
   ];
 
-  Widget percetageToConvertCoin(double percentage) {
+  Widget percetageToConvertCoin(double percentage,
+      {String wichCoinConvert = "", double amountToReturn = 0}) {
+    wichCoinConvert = selectWichCoinConvert;
+    Provider.of<StateController>(context, listen: false).pickWhichCoinConvert =
+        wichCoinConvert;
+
     return Center(
         child: Container(
             width: 30,
@@ -30,10 +39,24 @@ class CoinsConversionState extends State<CoinsConversionWidget> {
                           .percentageToConvert = percentage;
                       Provider.of<StateController>(context, listen: false)
                           .coinAmountConversion();
+                      amountToReturn =
+                          Provider.of<StateController>(context, listen: false)
+                              .coinAmountConversion();
+                      coinAmountToReturnAccordingToPercentage = amountToReturn;
+                      setState(() {
+                        textselectWichCoinConvert =
+                            coinAmountToReturnAccordingToPercentage.toString();
+                      });
+                      print(Provider.of<StateController>(context, listen: false)
+                          .pickWhichCoinConvert);
+                      print(Provider.of<StateController>(context, listen: false)
+                          .percentageToConvert);
+                      print(amountToReturn);
+                      print(coinAmountToReturnAccordingToPercentage);
                     },
                     child: Container(
                         child: Text(
-                          "${percentage}" + "%",
+                          "$percentage" "%",
                           textAlign: TextAlign.center,
                           style: const TextStyle(fontSize: 10),
                         ),
@@ -53,10 +76,11 @@ class CoinsConversionState extends State<CoinsConversionWidget> {
             color: Colors.black));
   }
 
-  Widget dropdownButton(String text, {double fontsize = 24}) {
+  Widget dropdownButton(String text, String nameOfTheCoin,
+      {double fontsize = 24}) {
     return DropdownButton(
       alignment: Alignment.center,
-      value: dropdownvalue,
+      value: nameOfTheCoin,
       icon: const Icon(Icons.keyboard_arrow_down),
       items: items.map((String items) {
         return DropdownMenuItem(
@@ -66,19 +90,19 @@ class CoinsConversionState extends State<CoinsConversionWidget> {
       }).toList(),
       onChanged: (String? newValue) {
         setState(() {
-          dropdownvalue = newValue!;
+          selectWichCoinConvert = newValue!;
         });
       },
     );
   }
 
-  Widget conversionField(String text) {
+  Widget conversionField(String textOfTheConversionsBox) {
     return TextFormField(
       controller: textFieldConversionAmount,
       keyboardType: TextInputType.number,
       decoration: InputDecoration(
         border: const UnderlineInputBorder(),
-        labelText: text,
+        labelText: textOfTheConversionsBox,
       ),
     );
   }
@@ -91,8 +115,8 @@ class CoinsConversionState extends State<CoinsConversionWidget> {
       Padding(
           padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
           child: textTitles("Converter de:")),
-      dropdownButton(dropdownvalue),
-      conversionField('Montante a ser convertido'),
+      dropdownButton(selectWichCoinConvert, selectWichCoinConvert),
+      conversionField(textselectWichCoinConvert),
       Row(children: [
         Expanded(child: percetageToConvertCoin(25)),
         Expanded(child: percetageToConvertCoin(50)),
@@ -100,8 +124,8 @@ class CoinsConversionState extends State<CoinsConversionWidget> {
         Expanded(child: percetageToConvertCoin(100))
       ]),
       textTitles("Para receber em:"),
-      dropdownButton(dropdownvalue),
-      conversionField('Montante após conversão'),
+      dropdownButton(selectToWichCoinConvert, selectToWichCoinConvert),
+      conversionField(textToWhatCoinWillBeConverted),
       Row(children: [
         Spacer(),
         Expanded(
@@ -113,11 +137,9 @@ class CoinsConversionState extends State<CoinsConversionWidget> {
                     routeNavigator: '/bitcoin')),
         Expanded(
             child: Provider.of<StateController>(context, listen: true)
-                .elevatedButton(
-          context,
-          "Confirmar",
-          width: double.infinity,
-        )),
+                .elevatedButton(context, "Confirmar",
+                    width: double.infinity,
+                    routeNavigator: '/completedConversion')),
         Spacer(),
       ]),
     ]));

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:work_project/CoinsDataToFutureAPI.dart';
 import 'package:work_project/Models/CoinConversion.dart';
+import 'Models/CompletedConversionScreen.dart';
 import 'Models/WalletDetailsPageModel.dart';
 
 class RouteGenerator {
@@ -52,6 +53,8 @@ class RouteGenerator {
         );
       case '/conversion':
         return MaterialPageRoute(builder: (_) => CoinsConversionWidget());
+      case '/completedConversion':
+        return MaterialPageRoute(builder: (_) => TabBarState());
     }
     return _errorRoute();
     // If there is no such named route in the switch statement

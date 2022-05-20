@@ -38,8 +38,9 @@ class CoinsLabelModelState extends State<CoinsLabelModelWidget> {
           title: Text(widget.coin.abreviation),
           subtitle: Text(widget.coin.name),
           trailing: Column(children: [
-            Text(Provider.of<StateController>(context, listen: true)
-                .amountFunc(widget.coin.amount)),
+            Text(Provider.of<StateController>(context, listen: true).amountFunc(
+                Provider.of<StateController>(context, listen: true)
+                    .bitcoinAmount)),
             (Provider.of<StateController>(context, listen: true)
                 .greenOrRedBackground(
                     text: "${widget.coin.variation}",

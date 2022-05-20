@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:work_project/WalletPage/WalletListOrganization.dart';
 
+import 'Models/Transactions.dart';
+
 class TabBarState extends State<TabBarWidget> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
@@ -11,10 +13,7 @@ class TabBarState extends State<TabBarWidget> {
       'Home',
       style: optionStyle,
     ),
-    const Text(
-      'Movimentações',
-      style: optionStyle,
-    ),
+    TransactionsWidget(),
   ];
 
   void _onItemTapped(int index) {

@@ -13,7 +13,6 @@ class ChartModelWidget extends StatefulWidget {
 class ChartModelState extends State<ChartModelWidget> {
   List<ChartSampleData> chartData = <ChartSampleData>[];
   bool changeChartType = true;
-  List randomNumber = [];
 
   @override
   initState() {
@@ -28,11 +27,9 @@ class ChartModelState extends State<ChartModelWidget> {
     for (var i = 0; i < numberOfSpots; i++) {
       var randomNumberGenerator = Random();
       final date = nowTime.subtract(Duration(days: i));
-
       final ChartSampleData chart = ChartSampleData(
           x: date, yValue: randomNumberGenerator.nextInt(1000).toDouble());
       test.add(chart);
-      randomNumber.add(randomNumberGenerator);
     }
     return test;
   }

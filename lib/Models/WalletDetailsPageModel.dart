@@ -17,24 +17,6 @@ class DetailsPageModelWidget extends StatefulWidget {
 }
 
 class DetailsPageModelState extends State<DetailsPageModelWidget> {
-  Widget listTile(String title, double trailingValue,
-      {Widget? subtitle,
-      String whatStringReturn = "R\$",
-      num? backgroundColorVerification}) {
-    return ListTile(
-      title: Text(title),
-      subtitle: subtitle,
-      trailing: Provider.of<StateController>(context, listen: true)
-          .greenOrRedBackground(
-              text: Provider.of<StateController>(context, listen: true)
-                  .numberFormatConversion(trailingValue,
-                      whatStringReturn: whatStringReturn),
-              backgroundColorVerification: backgroundColorVerification),
-      contentPadding:
-          const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,15 +49,20 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
                 border: Border(
                     top: BorderSide(
                         width: 1.1, color: Color.fromARGB(60, 0, 0, 0)))),
-            child: listTile(widget.detailPage.coinName, widget.detailPage.value,
+            child: Provider.of<StateController>(context, listen: true).listTile(
+                widget.detailPage.coinName, widget.detailPage.value,
                 subtitle: const Text("Valor Atual")),
           ),
-          listTile("Valor Atual", widget.detailPage.value),
-          listTile("Cap de mercado", widget.detailPage.capMercado,
+          Provider.of<StateController>(context, listen: true)
+              .listTile("Valor Atual", widget.detailPage.value),
+          Provider.of<StateController>(context, listen: true).listTile(
+              "Cap de mercado", widget.detailPage.capMercado,
               backgroundColorVerification: widget.detailPage.capMercado,
               whatStringReturn: ""),
-          listTile("Valor mínimo", widget.detailPage.minValue),
-          listTile("Valor máximo", widget.detailPage.maxValue),
+          Provider.of<StateController>(context, listen: true)
+              .listTile("Valor mínimo", widget.detailPage.minValue),
+          Provider.of<StateController>(context, listen: true)
+              .listTile("Valor máximo", widget.detailPage.maxValue),
           Provider.of<StateController>(context, listen: true).elevatedButton(
               context, "Converter moeda",
               routeNavigator: "/conversion"),
