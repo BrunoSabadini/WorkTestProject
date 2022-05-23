@@ -11,19 +11,20 @@ class StateController with ChangeNotifier {
   String hideWallet = "----------------";
   String profit = "+R\$ 100,00";
   String remuneration = "(100% do CDI)";
+  double bitcoinCurrentValue = 1000;
+  double litecoinCurrentValue = 2000;
+  double ethereumCurrentValue = 3000;
   double bitcoinAmount = 60000.00;
   double litecoinAmount = 40000.00;
   double ethereumAmount = 30000.00;
-  String pickWhichCoinConvert = "aa";
+  String pickWhichCoinConvert = "";
   double percentageToConvert = 0;
   double wichCoinAmount = 0;
-  List randomNumbersss = [];
 
   double walletAmount() {
     return bitcoinAmount + litecoinAmount + ethereumAmount;
   }
 
-// leading: Icon(widget.coin.icon, size: 35),
   Widget listTile(
     String title,
     double trailingValue, {
@@ -46,10 +47,6 @@ class StateController with ChangeNotifier {
     );
   }
 
-// 'Bitcoin',
-//     'Ethereum',
-//     'Litecoin',
-
   wichCoinConvert() {
     if (pickWhichCoinConvert == 'Bitcoin') {
       return bitcoinAmount;
@@ -58,7 +55,7 @@ class StateController with ChangeNotifier {
       return ethereumAmount;
     }
     if (pickWhichCoinConvert == 'Litecoin') {
-      return ethereumAmount;
+      return litecoinAmount;
     } else {
       return print("Correct the coin conversion");
     }

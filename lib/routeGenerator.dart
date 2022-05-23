@@ -3,6 +3,8 @@ import 'package:work_project/CoinsDataToFutureAPI.dart';
 import 'package:work_project/Models/CoinConversion.dart';
 import 'Models/CompletedConversionScreen.dart';
 import 'Models/WalletDetailsPageModel.dart';
+import 'package:provider/provider.dart';
+import 'package:work_project/StateController.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -13,7 +15,7 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (_) => DetailsPageModelWidget(
                 coin: Coins(
-                    abreviation: 'tirar',
+                    abreviation: 'ETH',
                     name: "Ethereum",
                     icon: Icons.currency_bitcoin),
                 detailPage: DetailPage(
@@ -26,7 +28,7 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (_) => DetailsPageModelWidget(
                 coin: Coins(
-                    abreviation: 'tirar',
+                    abreviation: 'LTC',
                     name: "Litecoin",
                     icon: Icons.currency_bitcoin),
                 detailPage: DetailPage(
@@ -39,7 +41,7 @@ class RouteGenerator {
         return MaterialPageRoute(
           builder: (_) => DetailsPageModelWidget(
             coin: Coins(
-                abreviation: 'tirar',
+                abreviation: 'BTC',
                 name: "Bitcoin",
                 icon: Icons.currency_bitcoin),
             detailPage: DetailPage(
