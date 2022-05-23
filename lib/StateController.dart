@@ -11,11 +11,17 @@ class StateController with ChangeNotifier {
   String hideWallet = "----------------";
   String profit = "+R\$ 100,00";
   String remuneration = "(100% do CDI)";
-  double bitcoinAmount = 50000.00;
-  double litecoinAmount = 50000.00;
-  double ethereumAmount = 50000.00;
+  double bitcoinAmount = 60000.00;
+  double litecoinAmount = 40000.00;
+  double ethereumAmount = 30000.00;
   String pickWhichCoinConvert = "aa";
   double percentageToConvert = 0;
+  double wichCoinAmount = 0;
+  List randomNumbersss = [];
+
+  double walletAmount() {
+    return bitcoinAmount + litecoinAmount + ethereumAmount;
+  }
 
 // leading: Icon(widget.coin.icon, size: 35),
   Widget listTile(

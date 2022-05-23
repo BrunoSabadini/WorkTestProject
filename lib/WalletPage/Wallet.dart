@@ -43,7 +43,9 @@ class WalletAmountState extends State<WalletAmountWidget> {
             Expanded(
                 child: Text(
                     Provider.of<StateController>(context, listen: true)
-                        .amountFunc(widget.coin.walletAmount),
+                        .amountFunc(
+                            Provider.of<StateController>(context, listen: true)
+                                .walletAmount()),
                     textAlign: TextAlign.left,
                     style: const TextStyle(
                         fontSize: 29, fontWeight: FontWeight.bold))),

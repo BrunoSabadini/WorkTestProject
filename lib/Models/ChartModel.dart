@@ -1,4 +1,5 @@
 import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -12,6 +13,7 @@ class ChartModelWidget extends StatefulWidget {
 class ChartModelState extends State<ChartModelWidget> {
   List<ChartSampleData> chartData = <ChartSampleData>[];
   bool changeChartType = true;
+  List randomNumbersss = [];
 
   @override
   initState() {
@@ -24,13 +26,25 @@ class ChartModelState extends State<ChartModelWidget> {
     List<ChartSampleData> test = <ChartSampleData>[];
 
     for (var i = 0; i < numberOfSpots; i++) {
-      var randomNumberGenerator = Random();
       final date = nowTime.subtract(Duration(days: i));
-      final ChartSampleData chart = ChartSampleData(
-          x: date, yValue: randomNumberGenerator.nextInt(1000).toDouble());
+      final ChartSampleData chart =
+          ChartSampleData(x: date, yValue: generateRandomNumber().toDouble());
       test.add(chart);
     }
     return test;
+  }
+
+  String minValue() {
+    return randomNumbersss.first;
+  }
+
+  int generateRandomNumber() {
+    List randomNumbers = [];
+    var randomNumberGenerator = Random().nextInt(1000);
+    randomNumbers.add(randomNumberGenerator);
+    randomNumbers.sort();
+    randomNumbersss = randomNumbers;
+    return randomNumberGenerator;
   }
 
   void callChartData(int numberOfSpots) {
@@ -119,6 +133,7 @@ class ChartModelState extends State<ChartModelWidget> {
                     child: OutlinedButton(
                       onPressed: () {
                         switchChartType();
+                        print(randomNumbersss);
                       },
                       child: Icon(Icons.bar_chart),
                       style: (1 != 1)

@@ -24,6 +24,17 @@ class CoinsLabelModelState extends State<CoinsLabelModelWidget> {
     }
   }
 
+  double wichCoinAmount(String abreviation) {
+    if (widget.coin.abreviation == "BTC") {
+      return Provider.of<StateController>(context, listen: true).bitcoinAmount;
+    } else if (widget.coin.abreviation == "ETH") {
+      return Provider.of<StateController>(context, listen: true).ethereumAmount;
+    } else if (widget.coin.abreviation == "LTC") {
+      return Provider.of<StateController>(context, listen: true).litecoinAmount;
+    }
+    return 0;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -38,9 +49,8 @@ class CoinsLabelModelState extends State<CoinsLabelModelWidget> {
           title: Text(widget.coin.abreviation),
           subtitle: Text(widget.coin.name),
           trailing: Column(children: [
-            Text(Provider.of<StateController>(context, listen: true).amountFunc(
-                Provider.of<StateController>(context, listen: true)
-                    .bitcoinAmount)),
+            Text(Provider.of<StateController>(context, listen: true)
+                .amountFunc(wichCoinAmount(widget.coin.abreviation))),
             (Provider.of<StateController>(context, listen: true)
                 .greenOrRedBackground(
                     text: "${widget.coin.variation}",
