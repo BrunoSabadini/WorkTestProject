@@ -9,7 +9,7 @@ class TransactionsState extends State<TransactionsWidget> {
         body: Stack(children: <Widget>[
       ListView(children: <Widget>[
         const Padding(
-            padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+            padding: EdgeInsets.fromLTRB(20, 20, 0, 10),
             child: Text("Informações",
                 style: TextStyle(
                     fontSize: 24,
@@ -17,7 +17,7 @@ class TransactionsState extends State<TransactionsWidget> {
                     color: Colors.black))),
         Provider.of<StateController>(context, listen: true).listTile(
             "ETH", 2000,
-            icon: Icon(Icons.currency_exchange_outlined),
+            icon: const Icon(Icons.currency_exchange_outlined),
             subtitle: const Text("31/12/2022")),
       ])
     ]));
@@ -25,7 +25,7 @@ class TransactionsState extends State<TransactionsWidget> {
 }
 
 class TransactionsWidget extends StatefulWidget {
-  TransactionsWidget({Key? key}) : super(key: key);
+  const TransactionsWidget({Key? key}) : super(key: key);
 
   @override
   State<TransactionsWidget> createState() => TransactionsState();

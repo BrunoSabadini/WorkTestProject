@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:work_project/StateController.dart';
 
 class CoinsConversionWidget extends StatefulWidget {
-  CoinsConversionWidget({Key? key}) : super(key: key);
+  const CoinsConversionWidget({Key? key}) : super(key: key);
 
   @override
   State<CoinsConversionWidget> createState() => CoinsConversionState();
@@ -90,7 +90,7 @@ class CoinsConversionState extends State<CoinsConversionWidget> {
         selectWichCoinConvert;
 
     return Center(
-        child: Container(
+        child: SizedBox(
             width: 30,
             child: Material(
                 child: InkWell(
@@ -117,8 +117,8 @@ class CoinsConversionState extends State<CoinsConversionWidget> {
                           style: const TextStyle(fontSize: 10),
                         ),
                         decoration: BoxDecoration(
-                            border:
-                                Border.all(color: Color.fromARGB(255, 0, 0, 0)),
+                            border: Border.all(
+                                color: const Color.fromARGB(255, 0, 0, 0)),
                             borderRadius: const BorderRadius.all(
                                 Radius.circular(10.0))))))));
   }
@@ -131,25 +131,6 @@ class CoinsConversionState extends State<CoinsConversionWidget> {
             fontWeight: FontWeight.bold,
             color: Colors.black));
   }
-
-  // Widget dropdownButton(String text, {double fontsize = 24}) {
-  //   return DropdownButton(
-  //     alignment: Alignment.center,
-  //     value: selectWichCoinConvert,
-  //     icon: const Icon(Icons.keyboard_arrow_down),
-  //     items: items.map((String items) {
-  //       return DropdownMenuItem(
-  //         value: items,
-  //         child: Text(items),
-  //       );
-  //     }).toList(),
-  //     onChanged: (String? newValue) {
-  //       setState(() {
-  //         selectWichCoinConvert = newValue!;
-  //       });
-  //     },
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -211,12 +192,13 @@ class CoinsConversionState extends State<CoinsConversionWidget> {
       Padding(
         padding: const EdgeInsets.fromLTRB(20, 20, 0, 30),
         child: Row(children: [
-          Spacer(),
+          const Spacer(),
           Expanded(
               child: Provider.of<StateController>(context, listen: true)
                   .elevatedButton(context, "Cancelar",
                       width: double.infinity,
-                      backgroundButtonColor: Color.fromARGB(255, 255, 255, 255),
+                      backgroundButtonColor:
+                          const Color.fromARGB(255, 255, 255, 255),
                       textButtonColor: const Color.fromARGB(255, 221, 48, 85),
                       routeNavigator: '/bitcoin')),
           Expanded(
@@ -224,7 +206,7 @@ class CoinsConversionState extends State<CoinsConversionWidget> {
                   .elevatedButton(context, "Confirmar",
                       width: double.infinity,
                       routeNavigator: '/completedConversion')),
-          Spacer(),
+          const Spacer(),
         ]),
       )
     ]));

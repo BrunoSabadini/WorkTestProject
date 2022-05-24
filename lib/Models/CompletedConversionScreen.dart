@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class CompletedConversionScreen extends StatelessWidget {
+  const CompletedConversionScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,7 +13,7 @@ class CompletedConversionScreen extends StatelessWidget {
                 children: [
           CircleAvatar(
             radius: 30,
-            backgroundColor: Color.fromARGB(82, 98, 255, 0),
+            backgroundColor: const Color.fromARGB(82, 98, 255, 0),
             child: IconButton(
               icon: const Icon(
                 Icons.check,

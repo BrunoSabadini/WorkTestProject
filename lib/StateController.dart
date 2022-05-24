@@ -55,6 +55,7 @@ class StateController with ChangeNotifier {
     if (pickWhichCoinConvert == 'Litecoin') {
       return litecoinAmount;
     } else {
+      // ignore: avoid_print
       return print("Correct the coin conversion");
     }
   }

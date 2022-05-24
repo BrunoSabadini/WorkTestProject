@@ -16,7 +16,7 @@ class WalletAmountState extends State<WalletAmountWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 40.0, right: 25, left: 25),
+      margin: const EdgeInsets.fromLTRB(25, 40, 25, 0),
       height: 150.0,
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Column(
@@ -38,7 +38,7 @@ class WalletAmountState extends State<WalletAmountWidget> {
               ),
             ],
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Row(children: [
             Expanded(
                 child: Text(

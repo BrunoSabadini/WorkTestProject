@@ -64,8 +64,9 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
         value = min(value, randomNumbers[i]);
       }
     } else {
-      for (var i = 0; i < randomNumbers.length; i++)
+      for (var i = 0; i < randomNumbers.length; i++) {
         value = max(value, randomNumbers[i]);
+      }
     }
     return value.toDouble();
   }
@@ -84,13 +85,9 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
           callChartData(numberOfSpots);
         },
         child: Text(label),
-        style: (false)
-            ? ButtonStyle(
-                foregroundColor: MaterialStateProperty.all(Colors.grey),
-              )
-            : ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.indigo[50]),
-              ),
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(Colors.indigo[50]),
+        ),
       ),
     );
   }
@@ -108,8 +105,14 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
             iconTheme: const IconThemeData(
               color: Colors.black, //change your color here
             ),
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back, color: Colors.black),
+              onPressed: () {
+                Navigator.of(context, rootNavigator: true).pushNamed("/");
+              },
+            ),
             toolbarOpacity: 0.5,
-            backgroundColor: Color.fromARGB(193, 255, 255, 255),
+            backgroundColor: const Color.fromARGB(193, 255, 255, 255),
             title: const SizedBox(
               width: double.infinity,
               child: Text('Detalhes',
@@ -122,7 +125,7 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
         body: ListView(children: <Widget>[
           Text("Moeda" " " + widget.coin.name,
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                   color: Colors.black)),
@@ -145,10 +148,11 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
                                             currentCoinValue(
                                                 widget.coin.abreviation))),
                                 backgroundColor:
-                                    Color.fromARGB(94, 224, 219, 219),
+                                    const Color.fromARGB(94, 224, 219, 219),
                                 primaryXAxis: DateTimeAxis(
                                     maximumLabels: 50,
-                                    majorGridLines: MajorGridLines(width: 0),
+                                    majorGridLines:
+                                        const MajorGridLines(width: 0),
                                     edgeLabelPlacement:
                                         EdgeLabelPlacement.shift,
                                     intervalType: DateTimeIntervalType.days),
@@ -191,7 +195,7 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
                             onPressed: () {
                               switchChartType();
                             },
-                            child: Icon(Icons.bar_chart),
+                            child: const Icon(Icons.bar_chart),
                             style: (1 != 1)
                                 ? ButtonStyle(
                                     foregroundColor:
@@ -209,7 +213,7 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
                 ],
               )),
           const Padding(
-              padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+              padding: EdgeInsets.fromLTRB(20, 0, 0, 15),
               child: Text("Informações",
                   style: TextStyle(
                       fontSize: 24,

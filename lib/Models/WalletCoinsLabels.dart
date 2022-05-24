@@ -58,7 +58,7 @@ class CoinsLabelModelState extends State<CoinsLabelModelWidget> {
           ]),
           isThreeLine: true,
           contentPadding:
-              EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+              const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
         ),
       ),
     );

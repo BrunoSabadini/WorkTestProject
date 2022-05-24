@@ -21,16 +21,10 @@ class Coins {
 
 class DetailPage {
   String coinName;
-  double value;
-  double minValue;
-  double maxValue;
   double capMercado;
   DetailPage({
     Key? key,
     required this.coinName,
-    required this.value,
-    required this.minValue,
-    required this.maxValue,
     required this.capMercado,
   });
 }
