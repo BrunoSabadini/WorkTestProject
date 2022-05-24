@@ -12,11 +12,12 @@ class CoinsConversionWidget extends StatefulWidget {
 class CoinsConversionState extends State<CoinsConversionWidget> {
   String selectWichCoinConvert = 'Bitcoin';
   String selectToWichCoinConvert = 'Bitcoin';
-  dynamic conversionFieldAmount = TextEditingController();
-  dynamic convertedFieldAmount = TextEditingController();
-  double coinAmountToReturnAccordingToPercentage = 0;
+  String conversionFieldAmount = "";
+  String convertedFieldAmount = "";
+  double receiveCoinAmountAccordingToPercentage = 0;
   String textToConversionField = "Montante a ser convertido";
   String textToConvertedField = "Montante após conversão";
+  int myIntVar = 0;
 
   var items = [
     'Bitcoin',
@@ -33,6 +34,7 @@ class CoinsConversionState extends State<CoinsConversionWidget> {
   double convertCoin() {
     double currentValueConvertedCoin = 0;
     double currentValueConvertedToCoin = 0;
+    double resultAfterConversion = 0;
 
     if (selectWichCoinConvert == 'Bitcoin') {
       currentValueConvertedCoin =
@@ -64,14 +66,17 @@ class CoinsConversionState extends State<CoinsConversionWidget> {
           Provider.of<StateController>(context, listen: false)
               .litecoinCurrentValue;
     }
-    return (currentValueConvertedCoin / currentValueConvertedToCoin) *
-        conversionFieldAmount;
+    resultAfterConversion =
+        (currentValueConvertedCoin / currentValueConvertedToCoin) *
+            receiveCoinAmountAccordingToPercentage;
+
+    return resultAfterConversion;
   }
 
   Widget conversionField(
-      dynamic recieveFieldValues, String staticConversionFieldText) {
+      String recieveFieldValues, String staticConversionFieldText) {
     return TextFormField(
-      controller: recieveFieldValues,
+      controller: TextEditingController(text: recieveFieldValues),
       keyboardType: TextInputType.number,
       decoration: InputDecoration(
         border: const UnderlineInputBorder(),
@@ -92,18 +97,18 @@ class CoinsConversionState extends State<CoinsConversionWidget> {
                     onTap: () {
                       Provider.of<StateController>(context, listen: false)
                           .percentageToConvert = percentage;
-                      Provider.of<StateController>(context, listen: false)
-                          .coinAmountConversion();
-                      coinAmountToReturnAccordingToPercentage =
+                      receiveCoinAmountAccordingToPercentage =
                           Provider.of<StateController>(context, listen: false)
-                              .coinAmountConversion();
-                      textToConvertedField = "2222";
+                              .coinAmountConversionAccordingToPercentage();
                       setState(() {
                         textToConversionField =
                             Provider.of<StateController>(context, listen: false)
                                 .numberFormatConversion(
-                                    coinAmountToReturnAccordingToPercentage);
+                                    receiveCoinAmountAccordingToPercentage);
                       });
+                      textToConvertedField =
+                          Provider.of<StateController>(context, listen: false)
+                              .numberFormatConversion(convertCoin());
                     },
                     child: Container(
                         child: Text(
@@ -127,24 +132,24 @@ class CoinsConversionState extends State<CoinsConversionWidget> {
             color: Colors.black));
   }
 
-  Widget dropdownButton(String text, {double fontsize = 24}) {
-    return DropdownButton(
-      alignment: Alignment.center,
-      value: selectWichCoinConvert,
-      icon: const Icon(Icons.keyboard_arrow_down),
-      items: items.map((String items) {
-        return DropdownMenuItem(
-          value: items,
-          child: Text(items),
-        );
-      }).toList(),
-      onChanged: (String? newValue) {
-        setState(() {
-          selectWichCoinConvert = newValue!;
-        });
-      },
-    );
-  }
+  // Widget dropdownButton(String text, {double fontsize = 24}) {
+  //   return DropdownButton(
+  //     alignment: Alignment.center,
+  //     value: selectWichCoinConvert,
+  //     icon: const Icon(Icons.keyboard_arrow_down),
+  //     items: items.map((String items) {
+  //       return DropdownMenuItem(
+  //         value: items,
+  //         child: Text(items),
+  //       );
+  //     }).toList(),
+  //     onChanged: (String? newValue) {
+  //       setState(() {
+  //         selectWichCoinConvert = newValue!;
+  //       });
+  //     },
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -184,22 +189,24 @@ class CoinsConversionState extends State<CoinsConversionWidget> {
             Expanded(child: percetageToConvertCoin(100))
           ])),
       textTitles("Para receber em:"),
-      DropdownButton(
-        alignment: Alignment.center,
-        value: selectToWichCoinConvert,
-        icon: const Icon(Icons.keyboard_arrow_down),
-        items: items2.map((String items) {
-          return DropdownMenuItem(
-            value: items,
-            child: Text(items),
-          );
-        }).toList(),
-        onChanged: (String? newValue) {
-          setState(() {
-            selectToWichCoinConvert = newValue!;
-          });
-        },
-      ),
+      Padding(
+          padding: const EdgeInsets.fromLTRB(20, 0, 0, 30),
+          child: DropdownButton(
+            alignment: Alignment.center,
+            value: selectToWichCoinConvert,
+            icon: const Icon(Icons.keyboard_arrow_down),
+            items: items2.map((String items) {
+              return DropdownMenuItem(
+                value: items,
+                child: Text(items),
+              );
+            }).toList(),
+            onChanged: (String? newValue) {
+              setState(() {
+                selectToWichCoinConvert = newValue!;
+              });
+            },
+          )),
       conversionField(convertedFieldAmount, textToConvertedField),
       Padding(
         padding: const EdgeInsets.fromLTRB(20, 20, 0, 30),

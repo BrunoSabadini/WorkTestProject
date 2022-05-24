@@ -61,7 +61,7 @@ class StateController with ChangeNotifier {
     }
   }
 
-  double coinAmountConversion() {
+  double coinAmountConversionAccordingToPercentage() {
     if (percentageToConvert == 25) {
       return wichCoinConvert() * 0.25;
     }
