@@ -105,14 +105,20 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Color.fromARGB(80, 11, 10, 10),
-          title: const Text('Detalhes',
-              textAlign: TextAlign.left,
-              style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black)),
-        ),
+            iconTheme: const IconThemeData(
+              color: Colors.black, //change your color here
+            ),
+            toolbarOpacity: 0.5,
+            backgroundColor: Color.fromARGB(193, 255, 255, 255),
+            title: const SizedBox(
+              width: double.infinity,
+              child: Text('Detalhes',
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black)),
+            )),
         body: ListView(children: <Widget>[
           Text("Moeda" " " + widget.coin.name,
               textAlign: TextAlign.center,
