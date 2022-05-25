@@ -32,6 +32,7 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
     final DateTime nowTime = DateTime.now();
     List<ChartSampleData> test = <ChartSampleData>[];
     randomNumbers = [];
+
     for (var i = 0; i < numberOfSpots; i++) {
       final date = nowTime.subtract(Duration(days: i));
       randomNumbers.add(Random().nextInt(1000));
@@ -103,7 +104,7 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
     return Scaffold(
         appBar: AppBar(
             iconTheme: const IconThemeData(
-              color: Colors.black, //change your color here
+              color: Colors.black,
             ),
             leading: IconButton(
               icon: const Icon(Icons.arrow_back, color: Colors.black),
@@ -248,5 +249,5 @@ class ChartSampleData {
   ChartSampleData({this.x, this.yValue});
 
   final DateTime? x;
-  final double? yValue;
+  final num? yValue;
 }

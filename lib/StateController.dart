@@ -82,7 +82,7 @@ class StateController with ChangeNotifier {
     if (backgroundColorVerification == null) {
       return Container(
         margin: const EdgeInsets.only(top: 10.0),
-        width: 55,
+        width: 90,
         child: Text(
           text,
           textAlign: TextAlign.center,
@@ -93,7 +93,7 @@ class StateController with ChangeNotifier {
     if (backgroundColorVerification > 0) {
       return Container(
         margin: const EdgeInsets.only(top: 10.0),
-        width: 55,
+        width: 70,
         decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
             color: Color.fromARGB(255, 188, 255, 190)),
@@ -106,7 +106,7 @@ class StateController with ChangeNotifier {
     } else {
       return Container(
           margin: const EdgeInsets.only(top: 10.0),
-          width: 55,
+          width: 70,
           decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(10.0)),
               color: Color.fromARGB(157, 255, 136, 136)),
@@ -123,24 +123,25 @@ class StateController with ChangeNotifier {
     String text, {
     Color backgroundButtonColor = const Color.fromARGB(255, 221, 48, 85),
     Color textButtonColor = const Color.fromARGB(255, 255, 255, 255),
-    double width = 30,
-    double height = 50,
     double fontSize = 20,
     String routeNavigator = "Go to Error Screen",
   }) {
-    return ElevatedButton(
-      child: Text(text),
-      onPressed: () {
-        Navigator.of(context, rootNavigator: true).pushNamed(routeNavigator);
-      },
-      style: ElevatedButton.styleFrom(
-          onPrimary: textButtonColor,
-          primary: backgroundButtonColor,
-          textStyle: TextStyle(
-            fontSize: fontSize,
-            fontWeight: FontWeight.bold,
-          )),
-    );
+    return SizedBox(
+        width: 200,
+        child: ElevatedButton(
+          child: Text(text),
+          onPressed: () {
+            Navigator.of(context, rootNavigator: true)
+                .pushNamed(routeNavigator);
+          },
+          style: ElevatedButton.styleFrom(
+              onPrimary: textButtonColor,
+              primary: backgroundButtonColor,
+              textStyle: TextStyle(
+                fontSize: fontSize,
+                fontWeight: FontWeight.bold,
+              )),
+        ));
   }
 
   void switchShowHide() {

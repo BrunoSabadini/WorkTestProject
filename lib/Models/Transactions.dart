@@ -9,7 +9,7 @@ class TransactionsState extends State<TransactionsWidget> {
         body: Stack(children: <Widget>[
       ListView(children: <Widget>[
         const Padding(
-            padding: EdgeInsets.fromLTRB(20, 20, 0, 10),
+            padding: EdgeInsets.fromLTRB(20, 60, 0, 10),
             child: Text("Informações",
                 style: TextStyle(
                     fontSize: 24,

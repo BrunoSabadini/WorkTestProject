@@ -18,6 +18,7 @@ class CoinsConversionState extends State<CoinsConversionWidget> {
   String textToConversionField = "Montante a ser convertido";
   String textToConvertedField = "Montante após conversão";
   int myIntVar = 0;
+  String recieveTypedFieldValues = "";
 
   var items = [
     'Bitcoin',
@@ -73,10 +74,9 @@ class CoinsConversionState extends State<CoinsConversionWidget> {
     return resultAfterConversion;
   }
 
-  Widget conversionField(
-      String recieveFieldValues, String staticConversionFieldText) {
+  Widget conversionField(String staticConversionFieldText) {
     return TextFormField(
-      controller: TextEditingController(text: recieveFieldValues),
+      controller: TextEditingController(text: recieveTypedFieldValues),
       keyboardType: TextInputType.number,
       decoration: InputDecoration(
         border: const UnderlineInputBorder(),
@@ -91,7 +91,7 @@ class CoinsConversionState extends State<CoinsConversionWidget> {
 
     return Center(
         child: SizedBox(
-            width: 30,
+            width: 60,
             child: Material(
                 child: InkWell(
                     onTap: () {
@@ -114,7 +114,10 @@ class CoinsConversionState extends State<CoinsConversionWidget> {
                         child: Text(
                           "$percentage" "%",
                           textAlign: TextAlign.center,
-                          style: const TextStyle(fontSize: 10),
+                          style: const TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                         decoration: BoxDecoration(
                             border: Border.all(
@@ -160,7 +163,7 @@ class CoinsConversionState extends State<CoinsConversionWidget> {
               });
             },
           )),
-      conversionField(conversionFieldAmount, textToConversionField),
+      conversionField(textToConversionField),
       Padding(
           padding: const EdgeInsets.fromLTRB(20, 20, 0, 30),
           child: Row(children: [
@@ -169,7 +172,9 @@ class CoinsConversionState extends State<CoinsConversionWidget> {
             Expanded(child: percetageToConvertCoin(75)),
             Expanded(child: percetageToConvertCoin(100))
           ])),
-      textTitles("Para receber em:"),
+      Padding(
+          padding: const EdgeInsets.fromLTRB(20, 70, 0, 30),
+          child: textTitles("Para receber em:")),
       Padding(
           padding: const EdgeInsets.fromLTRB(20, 0, 0, 30),
           child: DropdownButton(
@@ -188,25 +193,24 @@ class CoinsConversionState extends State<CoinsConversionWidget> {
               });
             },
           )),
-      conversionField(convertedFieldAmount, textToConvertedField),
+      conversionField(textToConvertedField),
       Padding(
-        padding: const EdgeInsets.fromLTRB(20, 20, 0, 30),
+        padding: const EdgeInsets.fromLTRB(20, 30, 20, 30),
         child: Row(children: [
-          const Spacer(),
+          // const Spacer(),
           Expanded(
               child: Provider.of<StateController>(context, listen: true)
                   .elevatedButton(context, "Cancelar",
-                      width: double.infinity,
                       backgroundButtonColor:
                           const Color.fromARGB(255, 255, 255, 255),
                       textButtonColor: const Color.fromARGB(255, 221, 48, 85),
                       routeNavigator: '/bitcoin')),
+          const Spacer(),
           Expanded(
               child: Provider.of<StateController>(context, listen: true)
                   .elevatedButton(context, "Confirmar",
-                      width: double.infinity,
                       routeNavigator: '/completedConversion')),
-          const Spacer(),
+          // const Spacer(),
         ]),
       )
     ]));
