@@ -3,49 +3,28 @@ import 'package:work_project/CoinsDataToFutureAPI.dart';
 import 'package:work_project/Models/CoinConversion.dart';
 import 'Models/CompletedConversionScreen.dart';
 import 'Models/WalletDetailsPageModel.dart';
+import 'Models/fetchCoins_models/data_model.dart';
+import 'first_screen.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     // Getting arguments passed in while calling Navigator.pushNamed
     switch (settings.name) {
       case '/ethereum':
-        return MaterialPageRoute(
-            builder: (_) => DetailsPageModelWidget(
-                coin: Coins(
-                    abreviation: 'ETH',
-                    name: "Ethereum",
-                    icon: Icons.currency_bitcoin),
-                detailPage: DetailPage(
-                  coinName: "Ethereum",
-                  capMercado: 10,
-                )));
+        return MaterialPageRoute(builder: (_) => FirstScreen());
       case '/litecoin':
-        return MaterialPageRoute(
-            builder: (_) => DetailsPageModelWidget(
-                coin: Coins(
-                    abreviation: 'LTC',
-                    name: "Litecoin",
-                    icon: Icons.currency_bitcoin),
-                detailPage: DetailPage(coinName: "Litecoin", capMercado: 10)));
+        return MaterialPageRoute(builder: (_) => FirstScreen());
       case '/bitcoin':
         return MaterialPageRoute(
-          builder: (_) => DetailsPageModelWidget(
-            coin: Coins(
-                abreviation: 'BTC',
-                name: "Bitcoin",
-                icon: Icons.currency_bitcoin),
-            detailPage: DetailPage(
-              coinName: "Bitcoin",
-              capMercado: 10,
-            ),
-            // data: args,
-          ),
+          builder: (_) => FirstScreen(),
         );
       case '/conversion':
         return MaterialPageRoute(builder: (_) => const CoinsConversionWidget());
       case '/completedConversion':
         return MaterialPageRoute(
             builder: (_) => const CompletedConversionScreen());
+      case '/API':
+        return MaterialPageRoute(builder: (_) => const FirstScreen());
     }
     return _errorRoute();
     // If there is no such named route in the switch statement

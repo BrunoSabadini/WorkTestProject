@@ -197,7 +197,6 @@ class CoinsConversionState extends State<CoinsConversionWidget> {
       Padding(
         padding: const EdgeInsets.fromLTRB(20, 30, 20, 30),
         child: Row(children: [
-          // const Spacer(),
           Expanded(
               child: Provider.of<StateController>(context, listen: true)
                   .elevatedButton(context, "Cancelar",
@@ -210,7 +209,6 @@ class CoinsConversionState extends State<CoinsConversionWidget> {
               child: Provider.of<StateController>(context, listen: true)
                   .elevatedButton(context, "Confirmar",
                       routeNavigator: '/completedConversion')),
-          // const Spacer(),
         ]),
       )
     ]));

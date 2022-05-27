@@ -1,16 +1,17 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:work_project/CoinsDataToFutureAPI.dart';
 import 'package:work_project/StateController.dart';
+import 'fetchCoins_models/data_model.dart';
+import 'fetchCoins_models/usd_model.dart';
 
 class DetailsPageModelWidget extends StatefulWidget {
-  Coins coin;
-  DetailPage detailPage;
+  final List<DataModel> coins;
+  final UsdModel valuesAndPercentages;
+
   DetailsPageModelWidget(
-      {Key? key, required this.coin, required this.detailPage})
+      {Key? key, required this.coins, required this.valuesAndPercentages})
       : super(key: key);
 
   @override
@@ -45,8 +46,7 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
 
   double currentCoinValue(String abreviation) {
     if (abreviation == "BTC") {
-      return Provider.of<StateController>(context, listen: true)
-          .bitcoinCurrentValue;
+      return widget.valuesAndPercentages.price.toDouble();
     } else if (abreviation == "ETH") {
       return Provider.of<StateController>(context, listen: true)
           .ethereumCurrentValue;
@@ -124,7 +124,7 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
                       color: Colors.black)),
             )),
         body: ListView(children: <Widget>[
-          Text("Moeda" " " + widget.coin.name,
+          Text("Moeda" " " + widget.coins[0].name,
               textAlign: TextAlign.center,
               style: const TextStyle(
                   fontSize: 24,
@@ -147,7 +147,7 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
                                             listen: true)
                                         .numberFormatConversion(
                                             currentCoinValue(
-                                                widget.coin.abreviation))),
+                                                widget.coins[0].symbol))),
                                 backgroundColor:
                                     const Color.fromARGB(94, 224, 219, 219),
                                 primaryXAxis: DateTimeAxis(
@@ -226,13 +226,14 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
                     top: BorderSide(
                         width: 1.1, color: Color.fromARGB(60, 0, 0, 0)))),
             child: Provider.of<StateController>(context, listen: true).listTile(
-                widget.detailPage.coinName,
-                currentCoinValue(widget.coin.abreviation),
+                widget.coins[0].name, currentCoinValue(widget.coins[0].symbol),
                 subtitle: const Text("Valor Atual")),
           ),
           Provider.of<StateController>(context, listen: true).listTile(
-              "Cap de mercado", widget.detailPage.capMercado,
-              backgroundColorVerification: widget.detailPage.capMercado,
+              "Cap de mercado",
+              widget.valuesAndPercentages.marketCap.toDouble(),
+              backgroundColorVerification:
+                  widget.coins[0].numMarketPairs.toDouble(),
               whatStringReturn: ""),
           Provider.of<StateController>(context, listen: true)
               .listTile("Valor mínimo", calculateMinAndMaxValue("min")),
