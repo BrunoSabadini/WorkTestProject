@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../StateController.dart';
+import '../l10n/app_localizations.dart';
 
 class TransactionsState extends State<TransactionsWidget> {
   @override
@@ -8,10 +9,12 @@ class TransactionsState extends State<TransactionsWidget> {
     return Scaffold(
         body: Stack(children: <Widget>[
       ListView(children: <Widget>[
-        const Padding(
-            padding: EdgeInsets.fromLTRB(20, 60, 0, 10),
-            child: Text("Informações",
-                style: TextStyle(
+        Padding(
+            padding: const EdgeInsets.fromLTRB(20, 60, 0, 10),
+            child: Text(
+                AppLocalizations.of(context)?.informations ??
+                    "Rever Internationalization",
+                style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                     color: Colors.black))),

@@ -66,8 +66,8 @@ abstract class AppLocalizations {
 
   final String localeName;
 
-  static AppLocalizations of(BuildContext context) {
-    return Localizations.of<AppLocalizations>(context, AppLocalizations)!;
+  static AppLocalizations? of(BuildContext context) {
+    return Localizations.of<AppLocalizations>(context, AppLocalizations);
   }
 
   static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
@@ -107,6 +107,108 @@ abstract class AppLocalizations {
   /// In pt, this message translates to:
   /// **'Carteira'**
   String get wallet;
+
+  /// No description provided for @informations.
+  ///
+  /// In pt, this message translates to:
+  /// **'Informações'**
+  String get informations;
+
+  /// No description provided for @transactions.
+  ///
+  /// In pt, this message translates to:
+  /// **'Movimentações'**
+  String get transactions;
+
+  /// No description provided for @wallets.
+  ///
+  /// In pt, this message translates to:
+  /// **'Carteiras'**
+  String get wallets;
+
+  /// No description provided for @actualvalue.
+  ///
+  /// In pt, this message translates to:
+  /// **'Valor Atual'**
+  String get actualvalue;
+
+  /// No description provided for @marketcap.
+  ///
+  /// In pt, this message translates to:
+  /// **'Cap. de Mercado'**
+  String get marketcap;
+
+  /// No description provided for @minimumvalue.
+  ///
+  /// In pt, this message translates to:
+  /// **'Valor Mínimo'**
+  String get minimumvalue;
+
+  /// No description provided for @maximumvalue.
+  ///
+  /// In pt, this message translates to:
+  /// **'Valor Máximo'**
+  String get maximumvalue;
+
+  /// No description provided for @convertcoin.
+  ///
+  /// In pt, this message translates to:
+  /// **'Converter Moeda'**
+  String get convertcoin;
+
+  /// No description provided for @coin.
+  ///
+  /// In pt, this message translates to:
+  /// **'Moeda'**
+  String get coin;
+
+  /// No description provided for @coinconversion.
+  ///
+  /// In pt, this message translates to:
+  /// **'Conversão de Moeda'**
+  String get coinconversion;
+
+  /// No description provided for @amounttobeconverted.
+  ///
+  /// In pt, this message translates to:
+  /// **'Montante a ser convertido'**
+  String get amounttobeconverted;
+
+  /// No description provided for @amountafterconversion.
+  ///
+  /// In pt, this message translates to:
+  /// **'Montante após conversão'**
+  String get amountafterconversion;
+
+  /// No description provided for @toreceivein.
+  ///
+  /// In pt, this message translates to:
+  /// **'Para receber em'**
+  String get toreceivein;
+
+  /// No description provided for @sucessfulycoinconversioncompleted.
+  ///
+  /// In pt, this message translates to:
+  /// **'Conversão de moeda efetuada com sucesso'**
+  String get sucessfulycoinconversioncompleted;
+
+  /// No description provided for @completedconversion.
+  ///
+  /// In pt, this message translates to:
+  /// **'Conversão efetuada'**
+  String get completedconversion;
+
+  /// No description provided for @confirm.
+  ///
+  /// In pt, this message translates to:
+  /// **'Confirmar'**
+  String get confirm;
+
+  /// No description provided for @cancel.
+  ///
+  /// In pt, this message translates to:
+  /// **'Cancelar'**
+  String get cancel;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

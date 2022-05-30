@@ -25,8 +25,8 @@ class WalletAmountState extends State<WalletAmountWidget> {
             children: [
               Expanded(
                   child: Text(
-                      AppLocalizations.of(context)
-                          .wallet, // Deixei "Carteira" mesmo em inglês porque ele reconhece que estou usando inglês
+                      AppLocalizations.of(context)?.wallet ??
+                          "Rever Internationalization", // Deixei "Carteira" mesmo em inglês porque ele reconhece que estou usando inglês
                       style: const TextStyle(
                           fontSize: 29, fontWeight: FontWeight.bold))),
               IconButton(

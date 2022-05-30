@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:work_project/WalletPage/WalletListOrganization.dart';
 import 'Models/Transactions.dart';
+import 'l10n/app_localizations.dart';
 
 class TabBarState extends State<TabBarWidget> {
   int _selectedIndex = 0;
@@ -29,7 +30,7 @@ class TabBarState extends State<TabBarWidget> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: const Color.fromARGB(255, 3, 0, 0),
-        items: const <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.card_travel),
             // ImageIcon(AssetImage("lib/Icon/warren.png"),
@@ -38,11 +39,13 @@ class TabBarState extends State<TabBarWidget> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.card_travel),
-            label: 'Carteiras',
+            label: AppLocalizations.of(context)?.wallets ??
+                "Rever Internationalization",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.toll_outlined),
-            label: 'Movimentações',
+            label: AppLocalizations.of(context)?.transactions ??
+                "Rever Internationalization",
           ),
         ],
         currentIndex: _selectedIndex,

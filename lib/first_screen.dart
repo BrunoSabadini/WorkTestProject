@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'Models/Repository.dart';
-import 'Models/WalletDetailsPageModel.dart';
+import 'Models/DetailsPageModel.dart';
 import 'Models/fetchCoins_models/big_data_model.dart';
 
 class FirstScreen extends StatefulWidget {
@@ -13,6 +13,7 @@ class FirstScreen extends StatefulWidget {
 }
 
 class _FirstScreenState extends State<FirstScreen> {
+  int? selectCoinIndex;
   late Future<BigDataModel> _futureCoins;
   late Repository repository;
   @override
@@ -30,8 +31,8 @@ class _FirstScreenState extends State<FirstScreen> {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.hasData) {
             var coinsData = snapshot.data!.dataModel;
-            var coin = coinsData[0];
-            var valuesAndPercentages = coin.quoteModel.usdModel;
+            var coin = coinsData[1];
+            var valuesAndPercentages = coinsData[0].quoteModel.usdModel;
             print("Tentei rodar a CoinList");
             return DetailsPageModelWidget(
               coins: coinsData,

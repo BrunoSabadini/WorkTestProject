@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:work_project/StateController.dart';
+import '../l10n/app_localizations.dart';
 import 'fetchCoins_models/data_model.dart';
 import 'fetchCoins_models/usd_model.dart';
 
@@ -227,18 +228,24 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
                         width: 1.1, color: Color.fromARGB(60, 0, 0, 0)))),
             child: Provider.of<StateController>(context, listen: true).listTile(
                 widget.coins[0].name, currentCoinValue(widget.coins[0].symbol),
-                subtitle: const Text("Valor Atual")),
+                subtitle: Text(AppLocalizations.of(context)?.actualvalue ??
+                    "Rever Internationalization")),
           ),
           Provider.of<StateController>(context, listen: true).listTile(
-              "Cap de mercado",
+              AppLocalizations.of(context)?.marketcap ??
+                  "Rever Internationalization",
               widget.valuesAndPercentages.marketCap.toDouble(),
               backgroundColorVerification:
-                  widget.coins[0].numMarketPairs.toDouble(),
+                  widget.valuesAndPercentages.marketCap.toDouble(),
               whatStringReturn: ""),
-          Provider.of<StateController>(context, listen: true)
-              .listTile("Valor mínimo", calculateMinAndMaxValue("min")),
-          Provider.of<StateController>(context, listen: true)
-              .listTile("Valor máximo", calculateMinAndMaxValue("max")),
+          Provider.of<StateController>(context, listen: true).listTile(
+              AppLocalizations.of(context)?.minimumvalue ??
+                  "Rever Internationalization",
+              calculateMinAndMaxValue("min")),
+          Provider.of<StateController>(context, listen: true).listTile(
+              AppLocalizations.of(context)?.maximumvalue ??
+                  "Rever Internationalization",
+              calculateMinAndMaxValue("max")),
           Provider.of<StateController>(context, listen: true).elevatedButton(
               context, "Converter moeda",
               routeNavigator: "/conversion"),

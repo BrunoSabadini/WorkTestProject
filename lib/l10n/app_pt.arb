@@ -1,4 +1,22 @@
 {
     "language": "Português",
-    "wallet": "carteira"
+    "wallet": "Carteira",
+    "informations": "Informações",
+    "transactions": "Movimentações",
+    "wallets": "Carteiras",
+    "actualvalue": "Valor Atual",
+    "marketcap": "Cap. de Mercado",
+    "minimumvalue": "Valor Mínimo",
+    "maximumvalue": "Valor Máximo",
+    "convertcoin": "Converter Moeda",
+    "coin": "Moeda",
+    "coinconversion": "Conversão de Moeda",
+    "amounttobeconverted": "Montante a ser convertido",
+    "amountafterconversion": "Montante após conversão",
+    "coin": "Moeda",
+    "toreceivein": "Para receber em",
+    "sucessfulycoinconversioncompleted": "Conversão de moeda efetuada com sucesso",
+    "completedconversion": "Conversão efetuada",
+    "confirm": "Confirmar",
+    "cancel": "Cancelar"
 }

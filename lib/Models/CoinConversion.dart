@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:work_project/StateController.dart';
 
+import '../l10n/app_localizations.dart';
+
 class CoinsConversionWidget extends StatefulWidget {
   const CoinsConversionWidget({Key? key}) : super(key: key);
 
@@ -141,10 +143,14 @@ class CoinsConversionState extends State<CoinsConversionWidget> {
         body: ListView(children: <Widget>[
       Padding(
           padding: const EdgeInsets.fromLTRB(20, 0, 0, 30),
-          child: textTitles("Conversão de moeda", fontsize: 30)),
+          child: textTitles(
+              AppLocalizations.of(context)?.coinconversion ??
+                  "Rever Internationalization",
+              fontsize: 30)),
       Padding(
           padding: const EdgeInsets.fromLTRB(20, 0, 0, 30),
-          child: textTitles("Converter de:")),
+          child: textTitles(AppLocalizations.of(context)?.convertcoin ??
+              "Rever Internationalization")),
       Padding(
           padding: const EdgeInsets.fromLTRB(20, 0, 0, 30),
           child: DropdownButton(
@@ -174,7 +180,8 @@ class CoinsConversionState extends State<CoinsConversionWidget> {
           ])),
       Padding(
           padding: const EdgeInsets.fromLTRB(20, 70, 0, 30),
-          child: textTitles("Para receber em:")),
+          child: textTitles(AppLocalizations.of(context)?.toreceivein ??
+              "Rever Internationalization")),
       Padding(
           padding: const EdgeInsets.fromLTRB(20, 0, 0, 30),
           child: DropdownButton(
@@ -199,7 +206,10 @@ class CoinsConversionState extends State<CoinsConversionWidget> {
         child: Row(children: [
           Expanded(
               child: Provider.of<StateController>(context, listen: true)
-                  .elevatedButton(context, "Cancelar",
+                  .elevatedButton(
+                      context,
+                      AppLocalizations.of(context)?.cancel ??
+                          "Rever Internationalization",
                       backgroundButtonColor:
                           const Color.fromARGB(255, 255, 255, 255),
                       textButtonColor: const Color.fromARGB(255, 221, 48, 85),
@@ -207,7 +217,10 @@ class CoinsConversionState extends State<CoinsConversionWidget> {
           const Spacer(),
           Expanded(
               child: Provider.of<StateController>(context, listen: true)
-                  .elevatedButton(context, "Confirmar",
+                  .elevatedButton(
+                      context,
+                      AppLocalizations.of(context)?.confirm ??
+                          "Rever Internationalization",
                       routeNavigator: '/completedConversion')),
         ]),
       )

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:work_project/CoinsDataToFutureAPI.dart';
 import 'package:work_project/Models/CoinConversion.dart';
 import 'Models/CompletedConversionScreen.dart';
-import 'Models/WalletDetailsPageModel.dart';
+import 'Models/DetailsPageModel.dart';
 import 'Models/fetchCoins_models/data_model.dart';
 import 'first_screen.dart';
 

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../l10n/app_localizations.dart';
+
 class CompletedConversionScreen extends StatelessWidget {
   const CompletedConversionScreen({Key? key}) : super(key: key);
 
@@ -26,9 +28,10 @@ class CompletedConversionScreen extends StatelessWidget {
           ),
           ListTile(
               title: Row(
-                children: const [
+                children: [
                   Text(
-                    "Conversão efetuada",
+                    AppLocalizations.of(context)?.coinconversion ??
+                        "Rever Internationalization",
                     style:
                         TextStyle(fontWeight: FontWeight.w500, fontSize: 25.0),
                   )
@@ -36,8 +39,10 @@ class CompletedConversionScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
               ),
               subtitle: Row(
-                children: const [
-                  Text("Conversão de moeda efetuada com sucesso!")
+                children: [
+                  Text(AppLocalizations.of(context)
+                          ?.sucessfulycoinconversioncompleted ??
+                      "Rever Internationalization")
                 ],
                 mainAxisAlignment: MainAxisAlignment.center,
               ))
