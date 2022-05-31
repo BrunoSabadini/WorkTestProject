@@ -1,18 +1,18 @@
-class MarketDataModel {
+class UsdModel {
   final num price;
   final num volume24h;
   final num percentChange_1h;
   final num percentChange_24h;
 
-  MarketDataModel({
+  UsdModel({
     required this.price,
     required this.volume24h,
     required this.percentChange_1h,
     required this.percentChange_24h,
   });
 
-  factory MarketDataModel.fromJson(Map<String, dynamic> json) {
-    return MarketDataModel(
+  factory UsdModel.fromJson(Map<String, dynamic> json) {
+    return UsdModel(
       price: json["price_usd"] == null ? 0.0 : json["price_usd"],
       volume24h: json["volume_last_24_hours"] == null
           ? 0.0

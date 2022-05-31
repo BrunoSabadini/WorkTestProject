@@ -7,12 +7,12 @@ import '../l10n/app_localizations.dart';
 import 'MessariAPI/data_model.dart';
 import 'MessariAPI/usd_model.dart';
 
-class DetailsPageModelWidget extends StatefulWidget {
+class APIchartWidget extends StatefulWidget {
   final List<DataModel> coins;
   final UsdModel valuesAndPercentages;
   final int wichCoin;
 
-  DetailsPageModelWidget(
+  APIchartWidget(
       {Key? key,
       required this.coins,
       required this.valuesAndPercentages,
@@ -20,10 +20,10 @@ class DetailsPageModelWidget extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<DetailsPageModelWidget> createState() => DetailsPageModelState();
+  State<APIchartWidget> createState() => APIchartState();
 }
 
-class DetailsPageModelState extends State<DetailsPageModelWidget> {
+class APIchartState extends State<APIchartWidget> {
   List<ChartSampleData> chartData = <ChartSampleData>[];
   bool changeChartType = true;
   List randomNumbers = [];
@@ -35,17 +35,34 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
   }
 
   List<ChartSampleData> dateFilter(int numberOfSpots) {
-    final DateTime nowTime = DateTime.now();
-    List<ChartSampleData> test = <ChartSampleData>[];
-    randomNumbers = [];
+    final DateTime oneDay = DateTime.now().subtract(Duration(days: 1));
+    final DateTime sevenDays = DateTime.now().subtract(Duration(days: 7));
+    final DateTime thirtyDays = DateTime.now().subtract(Duration(days: 30));
+    final DateTime sixtyDays = DateTime.now().subtract(Duration(days: 60));
+    final DateTime ninetyDays = DateTime.now().subtract(Duration(days: 90));
 
-    for (var i = 0; i < numberOfSpots; i++) {
-      final date = nowTime.subtract(Duration(days: i));
-      randomNumbers.add(Random().nextInt(1000));
-      final ChartSampleData chart =
-          ChartSampleData(x: date, yValue: randomNumbers.last);
-      test.add(chart);
-    }
+    List<ChartSampleData> test = <ChartSampleData>[
+      ChartSampleData(period: oneDay, yValue: 1),
+      ChartSampleData(period: sevenDays, yValue: 2),
+      ChartSampleData(period: thirtyDays, yValue: 3),
+      ChartSampleData(period: sixtyDays, yValue: 4),
+      ChartSampleData(period: ninetyDays, yValue: 5)
+    ];
+
+    // if (numberOfSpots == 1) {
+    //   return ;
+    // }
+    // else if (numberOfSpots == 7) {
+    //   return ;
+    // } else if (numberOfSpots == 30) {
+    //   return ;
+    // }
+    // else if (numberOfSpots == 60) {
+    //   return ;
+    // }
+    // else if (numberOfSpots == 90) {
+    //   return ;
+
     return test;
   }
 
@@ -166,7 +183,7 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
                                           dataSource: chartData,
                                           xValueMapper:
                                               (ChartSampleData sales, _) =>
-                                                  sales.x,
+                                                  sales.period,
                                           yValueMapper:
                                               (ChartSampleData sales, _) =>
                                                   sales.yValue,
@@ -174,10 +191,10 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
                                       ]
                                     : <ChartSeries<ChartSampleData, DateTime>>[
                                         BarSeries<ChartSampleData, DateTime>(
-                                          dataSource: chartData,
+                                          dataSource: dateFilter(30),
                                           xValueMapper:
                                               (ChartSampleData sales, _) =>
-                                                  sales.x,
+                                                  sales.period,
                                           yValueMapper:
                                               (ChartSampleData sales, _) =>
                                                   sales.yValue,
@@ -244,11 +261,11 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
           Provider.of<StateController>(context, listen: true).listTile(
               AppLocalizations.of(context)?.minimumvalue ??
                   "Rever Internationalization",
-              calculateMinAndMaxValue("min")),
+              3),
           Provider.of<StateController>(context, listen: true).listTile(
               AppLocalizations.of(context)?.maximumvalue ??
                   "Rever Internationalization",
-              calculateMinAndMaxValue("max")),
+              4),
           Provider.of<StateController>(context, listen: true).elevatedButton(
               context, "Converter moeda",
               routeNavigator: "/conversion"),
@@ -257,8 +274,8 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
 }
 
 class ChartSampleData {
-  ChartSampleData({this.x, this.yValue});
+  ChartSampleData({this.period, this.yValue});
 
-  final DateTime? x;
+  final DateTime? period;
   final num? yValue;
 }

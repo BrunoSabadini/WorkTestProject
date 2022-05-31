@@ -4,15 +4,17 @@ import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:work_project/StateController.dart';
 import '../l10n/app_localizations.dart';
+import 'CoinMarketAPI/market_big_data_model.dart';
+import 'CoinMarketAPI/market_repository.dart';
 import 'MessariAPI/data_model.dart';
 import 'MessariAPI/usd_model.dart';
 
-class DetailsPageModelWidget extends StatefulWidget {
+class ChartWidget extends StatefulWidget {
   final List<DataModel> coins;
   final UsdModel valuesAndPercentages;
   final int wichCoin;
 
-  DetailsPageModelWidget(
+  ChartWidget(
       {Key? key,
       required this.coins,
       required this.valuesAndPercentages,
@@ -20,32 +22,55 @@ class DetailsPageModelWidget extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<DetailsPageModelWidget> createState() => DetailsPageModelState();
+  State<ChartWidget> createState() => APIchartState();
 }
 
-class DetailsPageModelState extends State<DetailsPageModelWidget> {
+class APIchartState extends State<ChartWidget> {
   List<ChartSampleData> chartData = <ChartSampleData>[];
   bool changeChartType = true;
   List randomNumbers = [];
+  int? selectCoinIndex;
 
+  late Future<MarketBigDataModel> _futureCoins;
+  late MarketRepository repository;
   @override
-  initState() {
+  void initState() {
+    chartData = dateFilter(1, 2, 3, 4, 5);
+    repository = MarketRepository();
+    _futureCoins = repository.getCoins();
     super.initState();
-    chartData = dateFilter(30);
   }
 
-  List<ChartSampleData> dateFilter(int numberOfSpots) {
-    final DateTime nowTime = DateTime.now();
-    List<ChartSampleData> test = <ChartSampleData>[];
-    randomNumbers = [];
+  List<ChartSampleData> dateFilter(num dayOneValue, num daysevenValue,
+      num dayThirtyValue, num daySixtyValue, num dayNinetyValue) {
+    final DateTime oneDay = DateTime.now().subtract(Duration(days: 1));
+    final DateTime sevenDays = DateTime.now().subtract(Duration(days: 7));
+    final DateTime thirtyDays = DateTime.now().subtract(Duration(days: 30));
+    final DateTime sixtyDays = DateTime.now().subtract(Duration(days: 60));
+    final DateTime ninetyDays = DateTime.now().subtract(Duration(days: 90));
 
-    for (var i = 0; i < numberOfSpots; i++) {
-      final date = nowTime.subtract(Duration(days: i));
-      randomNumbers.add(Random().nextInt(1000));
-      final ChartSampleData chart =
-          ChartSampleData(x: date, yValue: randomNumbers.last);
-      test.add(chart);
-    }
+    List<ChartSampleData> test = <ChartSampleData>[
+      ChartSampleData(period: oneDay, yValue: dayOneValue),
+      ChartSampleData(period: sevenDays, yValue: daysevenValue),
+      ChartSampleData(period: thirtyDays, yValue: dayThirtyValue),
+      ChartSampleData(period: sixtyDays, yValue: daySixtyValue),
+      ChartSampleData(period: ninetyDays, yValue: dayNinetyValue)
+    ];
+
+    // if (numberOfSpots == 1) {
+    //   return ;
+    // }
+    // else if (numberOfSpots == 7) {
+    //   return ;
+    // } else if (numberOfSpots == 30) {
+    //   return ;
+    // }
+    // else if (numberOfSpots == 60) {
+    //   return ;
+    // }
+    // else if (numberOfSpots == 90) {
+    //   return ;
+
     return test;
   }
 
@@ -77,7 +102,7 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
 
   void callChartData(int numberOfSpots) {
     setState(() {
-      chartData = dateFilter(numberOfSpots);
+      chartData = dateFilter(1, 2, 3, 4, 5);
     });
   }
 
@@ -102,8 +127,8 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
     });
   }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget chartWidget(num dayOneValue, num daysevenValue, num dayThirtyValue,
+      num daySixtyValue, num dayNinetyValue) {
     return Scaffold(
         appBar: AppBar(
             iconTheme: const IconThemeData(
@@ -163,10 +188,15 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
                                 series: (changeChartType)
                                     ? <ChartSeries<ChartSampleData, DateTime>>[
                                         LineSeries<ChartSampleData, DateTime>(
-                                          dataSource: chartData,
+                                          dataSource: dateFilter(
+                                              dayOneValue,
+                                              daysevenValue,
+                                              dayThirtyValue,
+                                              daySixtyValue,
+                                              dayNinetyValue),
                                           xValueMapper:
                                               (ChartSampleData sales, _) =>
-                                                  sales.x,
+                                                  sales.period,
                                           yValueMapper:
                                               (ChartSampleData sales, _) =>
                                                   sales.yValue,
@@ -174,10 +204,15 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
                                       ]
                                     : <ChartSeries<ChartSampleData, DateTime>>[
                                         BarSeries<ChartSampleData, DateTime>(
-                                          dataSource: chartData,
+                                          dataSource: dateFilter(
+                                              dayOneValue,
+                                              daysevenValue,
+                                              dayThirtyValue,
+                                              daySixtyValue,
+                                              dayNinetyValue),
                                           xValueMapper:
                                               (ChartSampleData sales, _) =>
-                                                  sales.x,
+                                                  sales.period,
                                           yValueMapper:
                                               (ChartSampleData sales, _) =>
                                                   sales.yValue,
@@ -216,49 +251,44 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
                   ),
                 ],
               )),
-          const Padding(
-              padding: EdgeInsets.fromLTRB(20, 0, 0, 15),
-              child: Text("Informações",
-                  style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black))),
-          Container(
-            decoration: const BoxDecoration(
-                border: Border(
-                    top: BorderSide(
-                        width: 1.1, color: Color.fromARGB(60, 0, 0, 0)))),
-            child: Provider.of<StateController>(context, listen: true).listTile(
-                widget.coins[widget.wichCoin].name,
-                currentCoinValue(widget.coins[widget.wichCoin].symbol),
-                subtitle: Text(AppLocalizations.of(context)?.actualvalue ??
-                    "Rever Internationalization")),
-          ),
-          Provider.of<StateController>(context, listen: true).listTile(
-              AppLocalizations.of(context)?.marketcap ??
-                  "Rever Internationalization",
-              widget.valuesAndPercentages.percentChange_1h.toDouble(),
-              backgroundColorVerification:
-                  widget.valuesAndPercentages.percentChange_24h.toDouble(),
-              whatStringReturn: ""),
-          Provider.of<StateController>(context, listen: true).listTile(
-              AppLocalizations.of(context)?.minimumvalue ??
-                  "Rever Internationalization",
-              calculateMinAndMaxValue("min")),
-          Provider.of<StateController>(context, listen: true).listTile(
-              AppLocalizations.of(context)?.maximumvalue ??
-                  "Rever Internationalization",
-              calculateMinAndMaxValue("max")),
-          Provider.of<StateController>(context, listen: true).elevatedButton(
-              context, "Converter moeda",
-              routeNavigator: "/conversion"),
         ]));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<MarketBigDataModel>(
+      future: _futureCoins,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          if (snapshot.hasData) {
+            var coinsData = snapshot.data!.dataModel;
+            var coin = coinsData[widget.wichCoin];
+            var valuesAndPercentages =
+                coinsData[widget.wichCoin].quoteModel.usdModel;
+            print("Tentei rodar a CoinList");
+            return chartWidget(
+                valuesAndPercentages.percentChange_24h,
+                valuesAndPercentages.percentChange_7d,
+                valuesAndPercentages.percentChange_30d,
+                valuesAndPercentages.percentChange_60d,
+                valuesAndPercentages.percentChange_90d);
+          } else if (snapshot.hasError) {
+            print("Ba deu ruim");
+            return Text('${snapshot.error}');
+          }
+        }
+
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
   }
 }
 
 class ChartSampleData {
-  ChartSampleData({this.x, this.yValue});
+  ChartSampleData({this.period, this.yValue});
 
-  final DateTime? x;
+  final DateTime? period;
   final num? yValue;
 }
