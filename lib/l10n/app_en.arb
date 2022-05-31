@@ -1,0 +1,22 @@
+{
+    "language": "English",
+    "wallet": "wallet",
+    "informations": "informations",
+    "transactions": "Transactions",
+    "wallets": "Wallets",
+    "actualvalue": "Valor Atual",
+    "marketcap": "market cap",
+    "minimumvalue": "minimum value",
+    "maximumvalue": "maximum value",
+    "convertcoin": "convert coin",
+    "coin": "coin",
+    "coinconversion": "coin conversion",
+    "amounttobeconverted": "amount to be converted",
+    "amountafterconversion": "amount after conversion",
+    "coin": "coin",
+    "toreceivein": "to receive in:",
+    "sucessfulycoinconversioncompleted": "sucessfuly coin conversion completed",
+    "completedconversion": "completed conversion",
+    "confirm": "confirm",
+    "cancel": "cancel"
+}
