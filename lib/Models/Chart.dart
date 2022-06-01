@@ -10,13 +10,15 @@ import 'MessariAPI/data_model.dart';
 import 'MessariAPI/usd_model.dart';
 
 class ChartWidget extends StatefulWidget {
-  final List<DataModel> coins;
   final UsdModel valuesAndPercentages;
   final int wichCoin;
+  final String symbol;
+  final String name;
 
   ChartWidget(
       {Key? key,
-      required this.coins,
+      required this.symbol,
+      required this.name,
       required this.valuesAndPercentages,
       required this.wichCoin})
       : super(key: key);
@@ -29,10 +31,10 @@ class APIchartState extends State<ChartWidget> {
   List<ChartSampleData> chartData = <ChartSampleData>[];
   bool changeChartType = true;
   List randomNumbers = [];
-  int? selectCoinIndex;
 
   late Future<MarketBigDataModel> _futureCoins;
   late MarketRepository repository;
+
   @override
   void initState() {
     chartData = dateFilter(1, 2, 3, 4, 5);
@@ -56,21 +58,6 @@ class APIchartState extends State<ChartWidget> {
       ChartSampleData(period: sixtyDays, yValue: daySixtyValue),
       ChartSampleData(period: ninetyDays, yValue: dayNinetyValue)
     ];
-
-    // if (numberOfSpots == 1) {
-    //   return ;
-    // }
-    // else if (numberOfSpots == 7) {
-    //   return ;
-    // } else if (numberOfSpots == 30) {
-    //   return ;
-    // }
-    // else if (numberOfSpots == 60) {
-    //   return ;
-    // }
-    // else if (numberOfSpots == 90) {
-    //   return ;
-
     return test;
   }
 
@@ -152,7 +139,7 @@ class APIchartState extends State<ChartWidget> {
                       color: Colors.black)),
             )),
         body: ListView(children: <Widget>[
-          Text("Moeda" " " + widget.coins[widget.wichCoin].name,
+          Text("Moeda" " " + widget.name,
               textAlign: TextAlign.center,
               style: const TextStyle(
                   fontSize: 24,
@@ -174,8 +161,7 @@ class APIchartState extends State<ChartWidget> {
                                     text: Provider.of<StateController>(context,
                                             listen: true)
                                         .numberFormatConversion(
-                                            currentCoinValue(
-                                                widget.coins[0].symbol))),
+                                            currentCoinValue(widget.symbol))),
                                 backgroundColor:
                                     const Color.fromARGB(94, 224, 219, 219),
                                 primaryXAxis: DateTimeAxis(

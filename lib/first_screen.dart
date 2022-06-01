@@ -39,8 +39,9 @@ class _FirstScreenState extends State<FirstScreen> {
             print("Tentei rodar a CoinList");
             return ChartWidget(
               wichCoin: widget.wichCoin,
-              coins: coinsData,
               valuesAndPercentages: valuesAndPercentages,
+              name: coin.name,
+              symbol: coin.symbol,
             );
           } else if (snapshot.hasError) {
             print("Ba deu ruim");
