@@ -116,128 +116,62 @@ class APIchartState extends State<ChartWidget> {
 
   Widget chartWidget(num dayOneValue, num daysevenValue, num dayThirtyValue,
       num daySixtyValue, num dayNinetyValue) {
-    return Scaffold(
-        appBar: AppBar(
-            iconTheme: const IconThemeData(
-              color: Colors.black,
-            ),
-            leading: IconButton(
-              icon: const Icon(Icons.arrow_back, color: Colors.black),
-              onPressed: () {
-                Navigator.of(context, rootNavigator: true).pushNamed("/");
-              },
-            ),
-            toolbarOpacity: 0.5,
-            backgroundColor: const Color.fromARGB(193, 255, 255, 255),
-            title: const SizedBox(
-              width: double.infinity,
-              child: Text('Detalhes',
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black)),
-            )),
-        body: ListView(children: <Widget>[
-          Text("Moeda" " " + widget.name,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black)),
-          Container(
-              margin: const EdgeInsets.only(top: 20.0, right: 25, left: 25),
-              height: 300,
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Column(
-                children: [
-                  Row(children: [
-                    Expanded(
-                        child: SizedBox(
-                            height: 250,
-                            width: 100,
-                            child: SfCartesianChart(
-                                title: ChartTitle(
-                                    text: Provider.of<StateController>(context,
-                                            listen: true)
-                                        .numberFormatConversion(
-                                            currentCoinValue(widget.symbol))),
-                                backgroundColor:
-                                    const Color.fromARGB(94, 224, 219, 219),
-                                primaryXAxis: DateTimeAxis(
-                                    maximumLabels: 50,
-                                    majorGridLines:
-                                        const MajorGridLines(width: 0),
-                                    edgeLabelPlacement:
-                                        EdgeLabelPlacement.shift,
-                                    intervalType: DateTimeIntervalType.days),
-                                series: (changeChartType)
-                                    ? <ChartSeries<ChartSampleData, DateTime>>[
-                                        LineSeries<ChartSampleData, DateTime>(
-                                          dataSource: dateFilter(
-                                              dayOneValue,
-                                              daysevenValue,
-                                              dayThirtyValue,
-                                              daySixtyValue,
-                                              dayNinetyValue),
-                                          xValueMapper:
-                                              (ChartSampleData sales, _) =>
-                                                  sales.period,
-                                          yValueMapper:
-                                              (ChartSampleData sales, _) =>
-                                                  sales.yValue,
-                                        )
-                                      ]
-                                    : <ChartSeries<ChartSampleData, DateTime>>[
-                                        BarSeries<ChartSampleData, DateTime>(
-                                          dataSource: dateFilter(
-                                              dayOneValue,
-                                              daysevenValue,
-                                              dayThirtyValue,
-                                              daySixtyValue,
-                                              dayNinetyValue),
-                                          xValueMapper:
-                                              (ChartSampleData sales, _) =>
-                                                  sales.period,
-                                          yValueMapper:
-                                              (ChartSampleData sales, _) =>
-                                                  sales.yValue,
-                                        )
-                                      ])))
-                  ]),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        chartButton(5, '5D'),
-                        chartButton(10, '10D'),
-                        chartButton(15, '15D'),
-                        chartButton(30, '30D'),
-                        chartButton(50, '50D'),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 4),
-                          child: OutlinedButton(
-                            onPressed: () {
-                              switchChartType();
-                            },
-                            child: const Icon(Icons.bar_chart),
-                            style: (1 != 1)
-                                ? ButtonStyle(
-                                    foregroundColor:
-                                        MaterialStateProperty.all(Colors.grey),
+    return Container(
+        margin: const EdgeInsets.only(top: 20.0, right: 25, left: 25),
+        height: 300,
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: Column(
+          children: [
+            Row(children: [
+              Expanded(
+                  child: SizedBox(
+                      height: 250,
+                      width: 100,
+                      child: SfCartesianChart(
+                          title: ChartTitle(
+                              text: Provider.of<StateController>(context,
+                                      listen: true)
+                                  .numberFormatConversion(
+                                      currentCoinValue(widget.symbol))),
+                          backgroundColor:
+                              const Color.fromARGB(94, 224, 219, 219),
+                          primaryXAxis: DateTimeAxis(
+                              maximumLabels: 50,
+                              majorGridLines: const MajorGridLines(width: 0),
+                              edgeLabelPlacement: EdgeLabelPlacement.shift,
+                              intervalType: DateTimeIntervalType.days),
+                          series: (changeChartType)
+                              ? <ChartSeries<ChartSampleData, DateTime>>[
+                                  LineSeries<ChartSampleData, DateTime>(
+                                    dataSource: dateFilter(
+                                        dayOneValue,
+                                        daysevenValue,
+                                        dayThirtyValue,
+                                        daySixtyValue,
+                                        dayNinetyValue),
+                                    xValueMapper: (ChartSampleData sales, _) =>
+                                        sales.period,
+                                    yValueMapper: (ChartSampleData sales, _) =>
+                                        sales.yValue,
                                   )
-                                : ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all(
-                                        Colors.indigo[50]),
-                                  ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ],
-              )),
-        ]));
+                                ]
+                              : <ChartSeries<ChartSampleData, DateTime>>[
+                                  BarSeries<ChartSampleData, DateTime>(
+                                    dataSource: dateFilter(
+                                        dayOneValue,
+                                        daysevenValue,
+                                        dayThirtyValue,
+                                        daySixtyValue,
+                                        dayNinetyValue),
+                                    xValueMapper: (ChartSampleData sales, _) =>
+                                        sales.period,
+                                    yValueMapper: (ChartSampleData sales, _) =>
+                                        sales.yValue,
+                                  )
+                                ])))
+            ]),
+          ],
+        ));
   }
 
   @override

@@ -18,6 +18,7 @@ class _FirstScreenState extends State<FirstScreen> {
   int? selectCoinIndex;
   late Future<BigDataModel> _futureCoins;
   late Repository repository;
+
   @override
   void initState() {
     repository = Repository();
@@ -37,11 +38,12 @@ class _FirstScreenState extends State<FirstScreen> {
             var valuesAndPercentages =
                 coinsData[widget.wichCoin].metricsModel.usdModel;
             print("Tentei rodar a CoinList");
-            return ChartWidget(
+            return DetailsPageModelWidget(
               wichCoin: widget.wichCoin,
               valuesAndPercentages: valuesAndPercentages,
               name: coin.name,
               symbol: coin.symbol,
+              coin: [],
             );
           } else if (snapshot.hasError) {
             print("Ba deu ruim");
