@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'Models/APIchart.dart';
 import 'Models/Chart.dart';
 import 'Models/MessariAPI/big_data_model.dart';
 import 'Models/MessariAPI/Repository.dart';
 import 'Models/DetailsPageModel.dart';
 
 class FirstScreen extends StatefulWidget {
-  final int wichCoin;
-
-  const FirstScreen({Key? key, required this.wichCoin}) : super(key: key);
+  const FirstScreen({Key? key}) : super(key: key);
 
   @override
   _FirstScreenState createState() => _FirstScreenState();
@@ -33,17 +30,15 @@ class _FirstScreenState extends State<FirstScreen> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.hasData) {
-            var coinsData = snapshot.data!.dataModel;
-            var coin = coinsData[widget.wichCoin];
-            var valuesAndPercentages =
-                coinsData[widget.wichCoin].metricsModel.usdModel;
+            var coinName = snapshot.data!.name;
+            var coinSymbol = snapshot.data!.symbol;
+            var coinSlug = snapshot.data!.slug;
+            var valuesAndPercentages = snapshot.data!.values;
             print("Tentei rodar a CoinList");
             return DetailsPageModelWidget(
-              wichCoin: widget.wichCoin,
               valuesAndPercentages: valuesAndPercentages,
-              name: coin.name,
-              symbol: coin.symbol,
-              coin: [],
+              name: coinName,
+              symbol: coinSymbol,
             );
           } else if (snapshot.hasError) {
             print("Ba deu ruim");

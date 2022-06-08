@@ -10,18 +10,12 @@ class RouteGenerator {
     // Getting arguments passed in while calling Navigator.pushNamed
     switch (settings.name) {
       case '/ethereum':
-        return MaterialPageRoute(
-            builder: (_) => FirstScreen(
-                  wichCoin: 1,
-                ));
+        return MaterialPageRoute(builder: (_) => FirstScreen());
       case '/litecoin':
-        return MaterialPageRoute(
-            builder: (_) => FirstScreen(
-                  wichCoin: 18,
-                ));
+        return MaterialPageRoute(builder: (_) => FirstScreen());
       case '/bitcoin':
         return MaterialPageRoute(
-          builder: (_) => FirstScreen(wichCoin: 0),
+          builder: (_) => FirstScreen(),
         );
       case '/conversion':
         return MaterialPageRoute(builder: (_) => const CoinsConversionWidget());
@@ -29,10 +23,7 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (_) => const CompletedConversionScreen());
       case '/API':
-        return MaterialPageRoute(
-            builder: (_) => FirstScreen(
-                  wichCoin: 3,
-                ));
+        return MaterialPageRoute(builder: (_) => FirstScreen());
     }
     return _errorRoute();
     // If there is no such named route in the switch statement

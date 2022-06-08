@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:work_project/StateController.dart';
@@ -10,18 +11,16 @@ import 'MessariAPI/data_model.dart';
 import 'MessariAPI/usd_model.dart';
 
 class ChartWidget extends StatefulWidget {
-  final UsdModel valuesAndPercentages;
-  final int wichCoin;
-  final String symbol;
-  final String name;
+  final List? valuesAndPercentages;
+  final String? symbol;
+  final String? name;
 
-  ChartWidget(
-      {Key? key,
-      required this.symbol,
-      required this.name,
-      required this.valuesAndPercentages,
-      required this.wichCoin})
-      : super(key: key);
+  ChartWidget({
+    Key? key,
+    required this.symbol,
+    required this.name,
+    required this.valuesAndPercentages,
+  }) : super(key: key);
 
   @override
   State<ChartWidget> createState() => APIchartState();
@@ -58,16 +57,23 @@ class APIchartState extends State<ChartWidget> {
       ChartSampleData(period: sixtyDays, yValue: daySixtyValue),
       ChartSampleData(period: ninetyDays, yValue: dayNinetyValue)
     ];
+
+    for (var i = 0; i < 50; i++) {
+      dynamic valuesAndPercentagesToChart = widget.valuesAndPercentages![i][4];
+      // valuesAndPercentagesReversed!.reversed;
+      print(valuesAndPercentagesToChart);
+    }
+
     return test;
   }
 
   double currentCoinValue(String abreviation) {
     if (abreviation == "BTC") {
-      return widget.valuesAndPercentages.price.toDouble();
+      return widget.valuesAndPercentages!.last[4].toDouble();
     } else if (abreviation == "ETH") {
-      return widget.valuesAndPercentages.price.toDouble();
+      return widget.valuesAndPercentages!.last[4].toDouble();
     } else if (abreviation == "LTC") {
-      return widget.valuesAndPercentages.price.toDouble();
+      return widget.valuesAndPercentages!.last[4].toDouble();
     }
     return 0;
   }
@@ -132,7 +138,7 @@ class APIchartState extends State<ChartWidget> {
                               text: Provider.of<StateController>(context,
                                       listen: true)
                                   .numberFormatConversion(
-                                      currentCoinValue(widget.symbol))),
+                                      currentCoinValue(widget.symbol ?? ""))),
                           backgroundColor:
                               const Color.fromARGB(94, 224, 219, 219),
                           primaryXAxis: DateTimeAxis(
@@ -182,9 +188,8 @@ class APIchartState extends State<ChartWidget> {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.hasData) {
             var coinsData = snapshot.data!.dataModel;
-            var coin = coinsData[widget.wichCoin];
-            var valuesAndPercentages =
-                coinsData[widget.wichCoin].quoteModel.usdModel;
+            var coin = coinsData[1];
+            var valuesAndPercentages = coinsData[1].quoteModel.usdModel;
             print("Tentei rodar a CoinList");
             return chartWidget(
                 valuesAndPercentages.percentChange_24h,

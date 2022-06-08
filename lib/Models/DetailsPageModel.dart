@@ -9,20 +9,16 @@ import 'MessariAPI/data_model.dart';
 import 'MessariAPI/usd_model.dart';
 
 class DetailsPageModelWidget extends StatefulWidget {
-  final List<DataModel> coin;
-  final UsdModel valuesAndPercentages;
-  final int wichCoin;
-  final String name;
-  final String symbol;
+  final List? valuesAndPercentages;
+  final String? name;
+  final String? symbol;
 
-  DetailsPageModelWidget(
-      {Key? key,
-      required this.name,
-      required this.symbol,
-      required this.coin,
-      required this.valuesAndPercentages,
-      required this.wichCoin})
-      : super(key: key);
+  DetailsPageModelWidget({
+    Key? key,
+    required this.name,
+    required this.symbol,
+    required this.valuesAndPercentages,
+  }) : super(key: key);
 
   @override
   State<DetailsPageModelWidget> createState() => DetailsPageModelState();
@@ -56,11 +52,11 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
 
   double currentCoinValue(String abreviation) {
     if (abreviation == "BTC") {
-      return widget.valuesAndPercentages.price.toDouble();
+      return widget.valuesAndPercentages!.last[4].toDouble();
     } else if (abreviation == "ETH") {
-      return widget.valuesAndPercentages.price.toDouble();
+      return widget.valuesAndPercentages!.last[4].toDouble();
     } else if (abreviation == "LTC") {
-      return widget.valuesAndPercentages.price.toDouble();
+      return widget.valuesAndPercentages!.last[4].toDouble();
     }
     return 0;
   }
@@ -132,14 +128,13 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
                       color: Colors.black)),
             )),
         body: ListView(children: <Widget>[
-          Text("Moeda" " " + widget.name,
+          Text("Moeda" " " + (widget.name ?? ""),
               textAlign: TextAlign.center,
               style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                   color: Colors.black)),
           ChartWidget(
-              wichCoin: widget.wichCoin,
               valuesAndPercentages: widget.valuesAndPercentages,
               name: widget.name,
               symbol: widget.symbol),
@@ -186,16 +181,15 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
                     top: BorderSide(
                         width: 1.1, color: Color.fromARGB(60, 0, 0, 0)))),
             child: Provider.of<StateController>(context, listen: true).listTile(
-                widget.name, currentCoinValue(widget.symbol),
+                (widget.name ?? ""), currentCoinValue((widget.symbol ?? "")),
                 subtitle: Text(AppLocalizations.of(context)?.actualvalue ??
                     "Rever Internationalization")),
           ),
           Provider.of<StateController>(context, listen: true).listTile(
               AppLocalizations.of(context)?.marketcap ??
                   "Rever Internationalization",
-              widget.valuesAndPercentages.percentChange_1h.toDouble(),
-              backgroundColorVerification:
-                  widget.valuesAndPercentages.percentChange_24h.toDouble(),
+              10,
+              backgroundColorVerification: 10,
               whatStringReturn: ""),
           Provider.of<StateController>(context, listen: true).listTile(
               AppLocalizations.of(context)?.minimumvalue ??

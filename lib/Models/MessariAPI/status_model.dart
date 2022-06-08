@@ -1,6 +1,5 @@
 class StatusModel {
   final String timestamp;
-
   final int elapsed;
 
   StatusModel(
