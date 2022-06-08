@@ -59,9 +59,10 @@ class APIchartState extends State<ChartWidget> {
     ];
 
     for (var i = 0; i < 50; i++) {
-      dynamic valuesAndPercentagesToChart = widget.valuesAndPercentages![i][4];
+      List chartValues = [];
+      chartValues.add(widget.valuesAndPercentages![i][4]);
       // valuesAndPercentagesReversed!.reversed;
-      print(valuesAndPercentagesToChart);
+      print(chartValues);
     }
 
     return test;
@@ -182,32 +183,7 @@ class APIchartState extends State<ChartWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<MarketBigDataModel>(
-      future: _futureCoins,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
-          if (snapshot.hasData) {
-            var coinsData = snapshot.data!.dataModel;
-            var coin = coinsData[1];
-            var valuesAndPercentages = coinsData[1].quoteModel.usdModel;
-            print("Tentei rodar a CoinList");
-            return chartWidget(
-                valuesAndPercentages.percentChange_24h,
-                valuesAndPercentages.percentChange_7d,
-                valuesAndPercentages.percentChange_30d,
-                valuesAndPercentages.percentChange_60d,
-                valuesAndPercentages.percentChange_90d);
-          } else if (snapshot.hasError) {
-            print("Ba deu ruim");
-            return Text('${snapshot.error}');
-          }
-        }
-
-        return Center(
-          child: CircularProgressIndicator(),
-        );
-      },
-    );
+    return chartWidget(1, 2, 3, 4, 5);
   }
 }
 
