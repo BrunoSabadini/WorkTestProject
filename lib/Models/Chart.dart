@@ -36,33 +36,24 @@ class APIchartState extends State<ChartWidget> {
 
   @override
   void initState() {
-    chartData = dateFilter(1, 2, 3, 4, 5);
+    chartData = dateFilter();
     repository = MarketRepository();
     _futureCoins = repository.getCoins();
     super.initState();
   }
 
-  List<ChartSampleData> dateFilter(num dayOneValue, num daysevenValue,
-      num dayThirtyValue, num daySixtyValue, num dayNinetyValue) {
-    final DateTime oneDay = DateTime.now().subtract(Duration(days: 1));
-    final DateTime sevenDays = DateTime.now().subtract(Duration(days: 7));
-    final DateTime thirtyDays = DateTime.now().subtract(Duration(days: 30));
-    final DateTime sixtyDays = DateTime.now().subtract(Duration(days: 60));
-    final DateTime ninetyDays = DateTime.now().subtract(Duration(days: 90));
-
-    List<ChartSampleData> test = <ChartSampleData>[
-      ChartSampleData(period: oneDay, yValue: dayOneValue),
-      ChartSampleData(period: sevenDays, yValue: daysevenValue),
-      ChartSampleData(period: thirtyDays, yValue: dayThirtyValue),
-      ChartSampleData(period: sixtyDays, yValue: daySixtyValue),
-      ChartSampleData(period: ninetyDays, yValue: dayNinetyValue)
-    ];
+  List<ChartSampleData> dateFilter() {
+    List<ChartSampleData> test = <ChartSampleData>[];
 
     for (var i = 0; i < 50; i++) {
       List chartValues = [];
       chartValues.add(widget.valuesAndPercentages![i][4]);
-      // valuesAndPercentagesReversed!.reversed;
-      print(chartValues);
+
+      List<DateTime> chartDays = [];
+      chartDays.add(DateTime.now().subtract(Duration(days: i)));
+
+      test.add(
+          ChartSampleData(period: chartDays.last, yValue: chartValues.last));
     }
 
     return test;
@@ -96,7 +87,7 @@ class APIchartState extends State<ChartWidget> {
 
   void callChartData(int numberOfSpots) {
     setState(() {
-      chartData = dateFilter(1, 2, 3, 4, 5);
+      chartData = dateFilter();
     });
   }
 
@@ -150,12 +141,7 @@ class APIchartState extends State<ChartWidget> {
                           series: (changeChartType)
                               ? <ChartSeries<ChartSampleData, DateTime>>[
                                   LineSeries<ChartSampleData, DateTime>(
-                                    dataSource: dateFilter(
-                                        dayOneValue,
-                                        daysevenValue,
-                                        dayThirtyValue,
-                                        daySixtyValue,
-                                        dayNinetyValue),
+                                    dataSource: dateFilter(),
                                     xValueMapper: (ChartSampleData sales, _) =>
                                         sales.period,
                                     yValueMapper: (ChartSampleData sales, _) =>
@@ -164,12 +150,7 @@ class APIchartState extends State<ChartWidget> {
                                 ]
                               : <ChartSeries<ChartSampleData, DateTime>>[
                                   BarSeries<ChartSampleData, DateTime>(
-                                    dataSource: dateFilter(
-                                        dayOneValue,
-                                        daysevenValue,
-                                        dayThirtyValue,
-                                        daySixtyValue,
-                                        dayNinetyValue),
+                                    dataSource: dateFilter(),
                                     xValueMapper: (ChartSampleData sales, _) =>
                                         sales.period,
                                     yValueMapper: (ChartSampleData sales, _) =>
