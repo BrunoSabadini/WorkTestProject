@@ -30,6 +30,7 @@ class APIchartState extends State<ChartWidget> {
   List<ChartSampleData> chartData = <ChartSampleData>[];
   bool changeChartType = true;
   List randomNumbers = [];
+  List<ChartSampleData> chartSpots = <ChartSampleData>[];
 
   late Future<MarketBigDataModel> _futureCoins;
   late MarketRepository repository;
@@ -42,9 +43,7 @@ class APIchartState extends State<ChartWidget> {
     super.initState();
   }
 
-  List<ChartSampleData> dateFilter() {
-    List<ChartSampleData> test = <ChartSampleData>[];
-
+  List<ChartSampleData> dateFilter(int numberOfSpots) {
     for (var i = 0; i < 50; i++) {
       List chartValues = [];
       chartValues.add(widget.valuesAndPercentages![i][4]);
@@ -52,11 +51,11 @@ class APIchartState extends State<ChartWidget> {
       List<DateTime> chartDays = [];
       chartDays.add(DateTime.now().subtract(Duration(days: i)));
 
-      test.add(
+      chartSpots.add(
           ChartSampleData(period: chartDays.last, yValue: chartValues.last));
     }
 
-    return test;
+    return chartSpots;
   }
 
   double currentCoinValue(String abreviation) {
@@ -112,8 +111,7 @@ class APIchartState extends State<ChartWidget> {
     });
   }
 
-  Widget chartWidget(num dayOneValue, num daysevenValue, num dayThirtyValue,
-      num daySixtyValue, num dayNinetyValue) {
+  Widget chartWidget() {
     return Container(
         margin: const EdgeInsets.only(top: 20.0, right: 25, left: 25),
         height: 300,
@@ -164,7 +162,7 @@ class APIchartState extends State<ChartWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return chartWidget(1, 2, 3, 4, 5);
+    return chartWidget();
   }
 }
 

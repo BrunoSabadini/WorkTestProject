@@ -32,22 +32,7 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
   @override
   initState() {
     super.initState();
-    chartData = dateFilter(30);
-  }
-
-  List<ChartSampleData> dateFilter(int numberOfSpots) {
-    final DateTime nowTime = DateTime.now();
-    List<ChartSampleData> test = <ChartSampleData>[];
-    randomNumbers = [];
-
-    for (var i = 0; i < numberOfSpots; i++) {
-      final date = nowTime.subtract(Duration(days: i));
-      randomNumbers.add(Random().nextInt(1000));
-      final ChartSampleData chart =
-          ChartSampleData(x: date, yValue: randomNumbers.last);
-      test.add(chart);
-    }
-    return test;
+    // chartData = dateFilter(2);
   }
 
   double currentCoinValue(String abreviation) {
@@ -61,24 +46,24 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
     return 0;
   }
 
-  double calculateMinAndMaxValue(String minOrMaxValue) {
-    int value = randomNumbers.first;
-    minOrMaxValue = minOrMaxValue;
-    if (minOrMaxValue == "min") {
-      for (var i = 0; i < randomNumbers.length; i++) {
-        value = min(value, randomNumbers[i]);
-      }
-    } else {
-      for (var i = 0; i < randomNumbers.length; i++) {
-        value = max(value, randomNumbers[i]);
-      }
-    }
-    return value.toDouble();
-  }
+  // double calculateMinAndMaxValue(String minOrMaxValue) {
+  //   int value = randomNumbers.first;
+  //   minOrMaxValue = minOrMaxValue;
+  //   if (minOrMaxValue == "min") {
+  //     for (var i = 0; i < randomNumbers.length; i++) {
+  //       value = min(value, randomNumbers[i]);
+  //     }
+  //   } else {
+  //     for (var i = 0; i < randomNumbers.length; i++) {
+  //       value = max(value, randomNumbers[i]);
+  //     }
+  //   }
+  //   return value.toDouble();
+  // }
 
   void callChartData(int numberOfSpots) {
     setState(() {
-      chartData = dateFilter(numberOfSpots);
+      // chartData = dateFilter(numberOfSpots);
     });
   }
 
@@ -194,11 +179,11 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
           Provider.of<StateController>(context, listen: true).listTile(
               AppLocalizations.of(context)?.minimumvalue ??
                   "Rever Internationalization",
-              calculateMinAndMaxValue("min")),
+              1),
           Provider.of<StateController>(context, listen: true).listTile(
               AppLocalizations.of(context)?.maximumvalue ??
                   "Rever Internationalization",
-              calculateMinAndMaxValue("max")),
+              2),
           Provider.of<StateController>(context, listen: true).elevatedButton(
               context, "Converter moeda",
               routeNavigator: "/conversion"),
