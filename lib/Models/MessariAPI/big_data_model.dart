@@ -1,4 +1,3 @@
-import 'data_model.dart';
 import 'fetch_coins_models.dart';
 
 class BigDataModel {

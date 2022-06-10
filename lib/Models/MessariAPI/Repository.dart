@@ -6,14 +6,13 @@ import 'big_data_model.dart';
 class Repository {
   String filterEndPointEndDate() {
     final DateTime filterNinetyDays =
-        DateTime.now().subtract(Duration(days: 90));
+        DateTime.now().subtract(const Duration(days: 50));
     final DateFormat formatFilterNinetyDays = DateFormat('yyyy-MM-dd');
     final String ninetyDaysAgo =
         formatFilterNinetyDays.format(filterNinetyDays);
     return ninetyDaysAgo;
   }
 
-// APLICAR DATETIMENOW
   String filterEndPointStartDate() {
     final DateTime nowTime = DateTime.now();
     final DateFormat formatActualTime = DateFormat('yyyy-MM-dd');
@@ -23,8 +22,9 @@ class Repository {
 
   static String mainUrl = "https://data.messari.io/api/";
   final String apiKey = "8d38948c-555a-426f-bf5e-1b70abc6bea6";
+  String EndPoint = "";
   var currencyListingAPI =
-      '${mainUrl}v1/assets/btc/metrics/price/time-series?end=2022-06-01&interval=1d';
+      '${mainUrl}v1/assets/btc/metrics/price/time-series?end=2022-06-10&interval=1d';
   Dio _dio = Dio();
   Future<BigDataModel> getCoins() async {
     try {

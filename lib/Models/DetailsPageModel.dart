@@ -4,9 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:work_project/StateController.dart';
 import '../l10n/app_localizations.dart';
-import 'Chart.dart';
-import 'MessariAPI/data_model.dart';
-import 'MessariAPI/usd_model.dart';
+import 'MessariAPI/Repository.dart';
+import 'MessariAPI/big_data_model.dart';
 
 class DetailsPageModelWidget extends StatefulWidget {
   final List? valuesAndPercentages;
@@ -25,14 +24,42 @@ class DetailsPageModelWidget extends StatefulWidget {
 }
 
 class DetailsPageModelState extends State<DetailsPageModelWidget> {
-  List<ChartSampleData> chartData = <ChartSampleData>[];
   bool changeChartType = true;
-  List randomNumbers = [];
+  List<ChartSampleData> chartSpots = <ChartSampleData>[];
+  List chartValues = [];
+  double minValue = 0;
+  double maxValue = 0;
+
+  late Future<BigDataModel> _futureCoins;
+  late Repository repository;
 
   @override
   initState() {
     super.initState();
-    // chartData = dateFilter(2);
+    chartSpots = dateFilter(50);
+    repository = Repository();
+    _futureCoins = repository.getCoins();
+    super.initState();
+  }
+
+  List<ChartSampleData> dateFilter(int numberOfSpots) {
+    chartSpots = <ChartSampleData>[];
+    chartValues = [];
+
+    for (var i = 0; i < numberOfSpots; i++) {
+      List<dynamic> apiListValuesReversed =
+          widget.valuesAndPercentages!.reversed.toList();
+
+      chartValues.add(apiListValuesReversed[i][4]);
+
+      List<DateTime> chartDays = [];
+      chartDays.add(DateTime.now().subtract(Duration(days: i)));
+
+      chartSpots.add(
+          ChartSampleData(period: chartDays.last, yValue: chartValues.last));
+    }
+
+    return chartSpots;
   }
 
   double currentCoinValue(String abreviation) {
@@ -46,25 +73,84 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
     return 0;
   }
 
-  // double calculateMinAndMaxValue(String minOrMaxValue) {
-  //   int value = randomNumbers.first;
-  //   minOrMaxValue = minOrMaxValue;
-  //   if (minOrMaxValue == "min") {
-  //     for (var i = 0; i < randomNumbers.length; i++) {
-  //       value = min(value, randomNumbers[i]);
-  //     }
-  //   } else {
-  //     for (var i = 0; i < randomNumbers.length; i++) {
-  //       value = max(value, randomNumbers[i]);
-  //     }
-  //   }
-  //   return value.toDouble();
-  // }
+  double calculateMinAndMaxValue(String minOrMaxValue) {
+    double value = chartValues.first;
+
+    if (minOrMaxValue == "min") {
+      for (var i = 0; i < chartSpots.length; i++) {
+        value = min(value, chartValues[i]);
+        minValue = value;
+      }
+    } else {
+      for (var i = 0; i < chartSpots.length; i++) {
+        value = max(value, chartValues[i]);
+        maxValue = value;
+      }
+    }
+    return value.toDouble();
+  }
 
   void callChartData(int numberOfSpots) {
     setState(() {
-      // chartData = dateFilter(numberOfSpots);
+      chartSpots = dateFilter(numberOfSpots);
+      minValue = calculateMinAndMaxValue("min");
+      maxValue = calculateMinAndMaxValue("max");
     });
+  }
+
+  void switchChartType() {
+    setState(() {
+      changeChartType = !changeChartType;
+    });
+  }
+
+  Widget chartWidget() {
+    return Container(
+        margin: const EdgeInsets.only(top: 20.0, right: 25, left: 25),
+        height: 300,
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: Column(
+          children: [
+            Row(children: [
+              Expanded(
+                  child: SizedBox(
+                      height: 250,
+                      width: 100,
+                      child: SfCartesianChart(
+                          title: ChartTitle(
+                              text: Provider.of<StateController>(context,
+                                      listen: true)
+                                  .numberFormatConversion(
+                                      currentCoinValue(widget.symbol ?? ""))),
+                          backgroundColor:
+                              const Color.fromARGB(94, 224, 219, 219),
+                          primaryXAxis: DateTimeAxis(
+                              maximumLabels: 50,
+                              majorGridLines: const MajorGridLines(width: 0),
+                              edgeLabelPlacement: EdgeLabelPlacement.shift,
+                              intervalType: DateTimeIntervalType.days),
+                          series: (changeChartType)
+                              ? <ChartSeries<ChartSampleData, DateTime>>[
+                                  LineSeries<ChartSampleData, DateTime>(
+                                    dataSource: chartSpots,
+                                    xValueMapper: (ChartSampleData sales, _) =>
+                                        sales.period,
+                                    yValueMapper: (ChartSampleData sales, _) =>
+                                        sales.yValue,
+                                  )
+                                ]
+                              : <ChartSeries<ChartSampleData, DateTime>>[
+                                  BarSeries<ChartSampleData, DateTime>(
+                                    dataSource: chartSpots,
+                                    xValueMapper: (ChartSampleData sales, _) =>
+                                        sales.period,
+                                    yValueMapper: (ChartSampleData sales, _) =>
+                                        sales.yValue,
+                                  )
+                                ])))
+            ]),
+          ],
+        ));
   }
 
   chartButton(int numberOfSpots, String label) {
@@ -80,12 +166,6 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
         ),
       ),
     );
-  }
-
-  void switchChartType() {
-    setState(() {
-      changeChartType = !changeChartType;
-    });
   }
 
   @override
@@ -119,10 +199,59 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                   color: Colors.black)),
-          ChartWidget(
-              valuesAndPercentages: widget.valuesAndPercentages,
-              name: widget.name,
-              symbol: widget.symbol),
+          Container(
+              margin: const EdgeInsets.only(top: 20.0, right: 25, left: 25),
+              height: 300,
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Column(
+                children: [
+                  Row(children: [
+                    Expanded(
+                        child: SizedBox(
+                            height: 250,
+                            width: 100,
+                            child: SfCartesianChart(
+                                title: ChartTitle(
+                                    text: Provider.of<StateController>(context,
+                                            listen: true)
+                                        .numberFormatConversion(
+                                            currentCoinValue(
+                                                widget.symbol ?? ""))),
+                                backgroundColor:
+                                    const Color.fromARGB(94, 224, 219, 219),
+                                primaryXAxis: DateTimeAxis(
+                                    maximumLabels: 50,
+                                    majorGridLines:
+                                        const MajorGridLines(width: 0),
+                                    edgeLabelPlacement:
+                                        EdgeLabelPlacement.shift,
+                                    intervalType: DateTimeIntervalType.days),
+                                series: (changeChartType)
+                                    ? <ChartSeries<ChartSampleData, DateTime>>[
+                                        LineSeries<ChartSampleData, DateTime>(
+                                          dataSource: chartSpots,
+                                          xValueMapper:
+                                              (ChartSampleData sales, _) =>
+                                                  sales.period,
+                                          yValueMapper:
+                                              (ChartSampleData sales, _) =>
+                                                  sales.yValue,
+                                        )
+                                      ]
+                                    : <ChartSeries<ChartSampleData, DateTime>>[
+                                        BarSeries<ChartSampleData, DateTime>(
+                                          dataSource: chartSpots,
+                                          xValueMapper:
+                                              (ChartSampleData sales, _) =>
+                                                  sales.period,
+                                          yValueMapper:
+                                              (ChartSampleData sales, _) =>
+                                                  sales.yValue,
+                                        )
+                                      ])))
+                  ]),
+                ],
+              )),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
@@ -179,11 +308,11 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
           Provider.of<StateController>(context, listen: true).listTile(
               AppLocalizations.of(context)?.minimumvalue ??
                   "Rever Internationalization",
-              1),
+              minValue),
           Provider.of<StateController>(context, listen: true).listTile(
               AppLocalizations.of(context)?.maximumvalue ??
                   "Rever Internationalization",
-              2),
+              maxValue),
           Provider.of<StateController>(context, listen: true).elevatedButton(
               context, "Converter moeda",
               routeNavigator: "/conversion"),
@@ -192,8 +321,8 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
 }
 
 class ChartSampleData {
-  ChartSampleData({this.x, this.yValue});
+  ChartSampleData({this.period, this.yValue});
 
-  final DateTime? x;
+  final DateTime? period;
   final num? yValue;
 }

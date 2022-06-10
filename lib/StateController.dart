@@ -5,9 +5,8 @@ class StateController with ChangeNotifier {
   IconData eyeShow = Icons.visibility_rounded;
   IconData eyeHide = Icons.visibility_off_rounded;
   bool showHide = false;
-  String showWallet = "R\$ 87.000,00";
   String hideWallet = "----------------";
-  String profit = "+R\$ 100,00";
+  String profit = "+\$ 100,00";
   String remuneration = "(100% do CDI)";
   double bitcoinCurrentValue = 1000;
   double litecoinCurrentValue = 2000;
@@ -27,7 +26,7 @@ class StateController with ChangeNotifier {
     String title,
     double trailingValue, {
     Widget? subtitle,
-    String whatStringReturn = "R\$",
+    String whatStringReturn = "\$",
     num? backgroundColorVerification,
     String? textTest,
     Icon? icon,
@@ -166,8 +165,8 @@ class StateController with ChangeNotifier {
   }
 
   String numberFormatConversion(double value,
-      {String whatStringReturn = "R\$"}) {
-    return intl.NumberFormat.currency(locale: 'pt_BR', name: whatStringReturn)
+      {String whatStringReturn = "\$"}) {
+    return intl.NumberFormat.currency(locale: 'en_US', name: whatStringReturn)
         .format(value);
   }
 
