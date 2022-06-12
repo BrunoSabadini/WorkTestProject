@@ -1,4 +1,4 @@
-import 'fetch_coins_models.dart';
+import 'package:work_project/Models/MessariAPI/StatusModel.dart';
 
 class BigDataModel {
   final StatusModel statusModel;
@@ -21,9 +21,6 @@ class BigDataModel {
     String name = dataDictionary["name"];
     String slug = dataDictionary["slug"];
     List values = dataDictionary["values"];
-
-    // List<DataModel> dataModelList =
-    //     dataList.map((e) => DataModel.fromJson(e)).toList();
 
     return BigDataModel(
         statusModel: StatusModel.fromJson(json["status"]),

@@ -6,5 +6,5 @@ import 'package:work_project/StateController.dart';
 void main() {
   runApp(ChangeNotifierProvider(
       create: (context) => StateController(),
-      child: const HomeScreenStructureWidget()));
+      child: const MaterialAppAndProviderInstancesWidget()));
 }

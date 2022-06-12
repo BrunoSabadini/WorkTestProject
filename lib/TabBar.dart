@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:work_project/WalletPage/WalletListOrganization.dart';
+import 'package:work_project/WalletPage/WalletAndCryptoLabelsWidget.dart';
 import 'Models/Transactions.dart';
 import 'l10n/app_localizations.dart';
 
+class TabBarWidget extends StatefulWidget {
+  const TabBarWidget({Key? key}) : super(key: key);
+
+  @override
+  State<TabBarWidget> createState() => TabBarState();
+}
+
 class TabBarState extends State<TabBarWidget> {
   int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+
   static final List<Widget> _widgetOptions = <Widget>[
-    ListOrganizationWidget(),
+    WalletAndCryptoLabelsWidget(),
     const Text(
       'Home',
-      style: optionStyle,
     ),
     const TransactionsWidget(),
   ];
@@ -53,11 +58,4 @@ class TabBarState extends State<TabBarWidget> {
       ),
     );
   }
-}
-
-class TabBarWidget extends StatefulWidget {
-  const TabBarWidget({Key? key}) : super(key: key);
-
-  @override
-  State<TabBarWidget> createState() => TabBarState();
 }
