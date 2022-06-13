@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:work_project/CoinsDataToFutureAPI.dart';
 import '../Models/MessariAPI/AllAssetsBigDataModel.dart';
-import '../Models/MessariAPI/AllAssetsDataModel.dart';
 import '../Models/MessariAPI/AllAssetsRepository.dart';
 import '../StateController.dart';
 import '../l10n/app_localizations.dart';
@@ -162,8 +160,8 @@ class WalletAndCryptoLabelsState extends State<WalletAndCryptoLabelsWidget> {
                         coinsLabel(coinsData[1].symbol, coinsData[1].name, 10)),
                 Tooltip(
                     message: "Go to LTC details",
-                    child:
-                        coinsLabel(coinsData[3].symbol, coinsData[3].name, 10))
+                    child: coinsLabel(
+                        coinsData[19].symbol, coinsData[19].name, 10))
               ])
             ]);
           } else if (snapshot.hasError) {
