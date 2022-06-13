@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:work_project/WalletPage/WalletAndCryptoLabelsWidget.dart';
 import 'package:work_project/TabBar.dart';
 import 'package:work_project/l10n/app_localizations.dart';
 import 'package:work_project/routeGenerator.dart';
@@ -38,7 +37,7 @@ class MaterialAppAndProviderInstancesState
       ],
       supportedLocales: L10n.all,
       onGenerateRoute: RouteGenerator.generateRoute,
-      home: const Scaffold(bottomNavigationBar: TabBarWidget()),
+      home: const Scaffold(bottomNavigationBar: BottomNavigationBarWidget()),
     );
   }
 }

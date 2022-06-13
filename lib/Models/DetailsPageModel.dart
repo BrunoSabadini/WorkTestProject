@@ -8,7 +8,7 @@ import 'MessariAPI/Repository.dart';
 import 'MessariAPI/BigDataModel.dart';
 
 class DetailsPageModelWidget extends StatefulWidget {
-  String? symbol;
+  String symbol;
 
   DetailsPageModelWidget({
     Key? key,
@@ -131,7 +131,7 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
                               text: Provider.of<StateController>(context,
                                       listen: true)
                                   .numberFormatConversion(
-                                      currentCoinValue(widget.symbol ?? ""))),
+                                      currentCoinValue(widget.symbol))),
                           backgroundColor:
                               const Color.fromARGB(94, 224, 219, 219),
                           primaryXAxis: DateTimeAxis(
@@ -237,7 +237,7 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
                                                     listen: true)
                                                 .numberFormatConversion(
                                                     currentCoinValue(
-                                                        widget.symbol ?? ""))),
+                                                        widget.symbol))),
                                         backgroundColor: const Color.fromARGB(
                                             94, 224, 219, 219),
                                         primaryXAxis: DateTimeAxis(
@@ -324,8 +324,8 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
                                 width: 1.1,
                                 color: Color.fromARGB(60, 0, 0, 0)))),
                     child: Provider.of<StateController>(context, listen: true)
-                        .listTile((name ?? ""),
-                            currentCoinValue((widget.symbol ?? "")),
+                        .listTile(
+                            (name ?? ""), currentCoinValue((widget.symbol)),
                             subtitle: Text(
                                 AppLocalizations.of(context)?.actualvalue ??
                                     "Rever Internationalization")),

@@ -3,14 +3,14 @@ import 'package:work_project/WalletPage/WalletAndCryptoLabelsWidget.dart';
 import 'Models/Transactions.dart';
 import 'l10n/app_localizations.dart';
 
-class TabBarWidget extends StatefulWidget {
-  const TabBarWidget({Key? key}) : super(key: key);
+class BottomNavigationBarWidget extends StatefulWidget {
+  const BottomNavigationBarWidget({Key? key}) : super(key: key);
 
   @override
-  State<TabBarWidget> createState() => TabBarState();
+  State<BottomNavigationBarWidget> createState() => TabBarState();
 }
 
-class TabBarState extends State<TabBarWidget> {
+class TabBarState extends State<BottomNavigationBarWidget> {
   int _selectedIndex = 0;
 
   static final List<Widget> _widgetOptions = <Widget>[

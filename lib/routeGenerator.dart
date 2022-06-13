@@ -5,8 +5,6 @@ import 'Models/DetailsPageModel.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
-    // Getting arguments passed in while calling Navigator.pushNamed
-
     switch (settings.name) {
       case '/ethereum':
         return MaterialPageRoute(
@@ -25,7 +23,6 @@ class RouteGenerator {
             builder: (_) => const CompletedConversionScreen());
     }
     return _errorRoute();
-    // If there is no such named route in the switch statement
   }
 }
 
