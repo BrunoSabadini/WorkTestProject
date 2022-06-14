@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:work_project/StateController.dart';
@@ -40,15 +41,23 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
     super.initState();
   }
 
-  String endPointPickAccordingToSymbol() {
-    if (widget.symbol == "BTC") {
-      return 'https://data.messari.io/api/v1/assets/btc/metrics/price/time-series?end=2022-06-10&interval=1d';
-    } else if (widget.symbol == "ETH") {
-      return 'https://data.messari.io/api/v1/assets/eth/metrics/price/time-series?end=2022-06-10&interval=1d';
-    } else if (widget.symbol == "LTC") {
-      return 'https://data.messari.io/api/v1/assets/ltc/metrics/price/time-series?end=2022-06-10&interval=1d';
-    } else {
-      return "No symbol found";
+  String filterEndPointStartDate() {
+    final DateTime nowTime = DateTime.now();
+    final DateFormat formatActualTime = DateFormat('yyyy-MM-dd');
+    final String actualTime = formatActualTime.format(nowTime);
+    return actualTime;
+  }
+
+  endPointPickAccordingToSymbol() {
+    switch (widget.symbol) {
+      case "BTC":
+        return 'https://data.messari.io/api/v1/assets/btc/metrics/price/time-series?end=${filterEndPointStartDate()}&interval=1d';
+      case "ETH":
+        return 'https://data.messari.io/api/v1/assets/eth/metrics/price/time-series?end=${filterEndPointStartDate()}&interval=1d';
+      case "LTC":
+        return 'https://data.messari.io/api/v1/assets/ltc/metrics/price/time-series?end=${filterEndPointStartDate()}&interval=1d';
+      default:
+        "No symbol found";
     }
   }
 
@@ -64,7 +73,6 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
 
       List<DateTime> chartDays = [];
       chartDays.add(DateTime.now().subtract(Duration(days: i)));
-
       chartSpots.add(
           ChartSampleData(period: chartDays.last, yValue: chartValues.last));
     }
@@ -72,15 +80,15 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
     return chartSpots;
   }
 
-  double currentCoinValue(String abreviation) {
-    if (abreviation == "BTC") {
-      return valuesAndPercentages!.last[4].toDouble();
-    } else if (abreviation == "ETH") {
-      return valuesAndPercentages!.last[4].toDouble();
-    } else if (abreviation == "LTC") {
-      return valuesAndPercentages!.last[4].toDouble();
+  currentCoinValue() {
+    switch (widget.symbol) {
+      case "BTC":
+        return valuesAndPercentages!.last[4].toDouble();
+      case "ETH":
+        return valuesAndPercentages!.last[4].toDouble();
+      case "LTC":
+        return valuesAndPercentages!.last[4].toDouble();
     }
-    return 0;
   }
 
   double calculateMinAndMaxValue(String minOrMaxValue) {
@@ -130,8 +138,7 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
                           title: ChartTitle(
                               text: Provider.of<StateController>(context,
                                       listen: true)
-                                  .numberFormatConversion(
-                                      currentCoinValue(widget.symbol))),
+                                  .numberFormatConversion(currentCoinValue())),
                           backgroundColor:
                               const Color.fromARGB(94, 224, 219, 219),
                           primaryXAxis: DateTimeAxis(
@@ -236,8 +243,7 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
                                                     context,
                                                     listen: true)
                                                 .numberFormatConversion(
-                                                    currentCoinValue(
-                                                        widget.symbol))),
+                                                    currentCoinValue())),
                                         backgroundColor: const Color.fromARGB(
                                             94, 224, 219, 219),
                                         primaryXAxis: DateTimeAxis(
@@ -249,7 +255,9 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
                                             intervalType:
                                                 DateTimeIntervalType.days),
                                         series: (changeChartType)
-                                            ? <ChartSeries<ChartSampleData, DateTime>>[
+                                            ? <
+                                                ChartSeries<ChartSampleData,
+                                                    DateTime>>[
                                                 LineSeries<ChartSampleData,
                                                     DateTime>(
                                                   dataSource: chartSpots,
@@ -324,26 +332,17 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
                                 width: 1.1,
                                 color: Color.fromARGB(60, 0, 0, 0)))),
                     child: Provider.of<StateController>(context, listen: true)
-                        .listTile(
-                            (name ?? ""), currentCoinValue((widget.symbol)),
+                        .listTile((name ?? ""), currentCoinValue(),
                             subtitle: Text(
-                                AppLocalizations.of(context)?.actualvalue ??
-                                    "Rever Internationalization")),
+                                AppLocalizations.of(context)!.actualvalue)),
                   ),
                   Provider.of<StateController>(context, listen: true).listTile(
-                      AppLocalizations.of(context)?.marketcap ??
-                          "Rever Internationalization",
-                      10,
-                      backgroundColorVerification: 10,
-                      whatStringReturn: ""),
+                      AppLocalizations.of(context)!.marketcap, 10,
+                      backgroundColorVerification: 10, whatStringReturn: ""),
                   Provider.of<StateController>(context, listen: true).listTile(
-                      AppLocalizations.of(context)?.minimumvalue ??
-                          "Rever Internationalization",
-                      minValue),
+                      AppLocalizations.of(context)!.minimumvalue, minValue),
                   Provider.of<StateController>(context, listen: true).listTile(
-                      AppLocalizations.of(context)?.maximumvalue ??
-                          "Rever Internationalization",
-                      maxValue),
+                      AppLocalizations.of(context)!.maximumvalue, maxValue),
                   Provider.of<StateController>(context, listen: true)
                       .elevatedButton(context, "Converter moeda",
                           routeNavigator: "/conversion"),
@@ -352,7 +351,7 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
             return Text('${snapshot.error}');
           }
         }
-        return Center(
+        return const Center(
           child: CircularProgressIndicator(),
         );
       },

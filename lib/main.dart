@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:work_project/WalletPage/MaterialAppAndProviderInstancesWidget.dart';
 import 'package:work_project/StateController.dart';
+
+import 'FirstScreen/MaterialAppAndProviderInstancesWidget.dart';
 
 void main() {
   runApp(ChangeNotifierProvider(

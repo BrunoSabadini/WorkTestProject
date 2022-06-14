@@ -7,6 +7,6 @@ class StatusModel {
     this.elapsed,
   );
   StatusModel.fromJson(Map<String, dynamic> json)
-      : timestamp = json["timestamp"] == null ? "" : json["timestamp"],
-        elapsed = json["elapsed"] == null ? 0 : json["elapsed"];
+      : timestamp = json["timestamp"],
+        elapsed = json["elapsed"];
 }

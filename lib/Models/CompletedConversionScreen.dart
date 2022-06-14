@@ -30,19 +30,17 @@ class CompletedConversionScreen extends StatelessWidget {
               title: Row(
                 children: [
                   Text(
-                    AppLocalizations.of(context)?.coinconversion ??
-                        "Rever Internationalization",
-                    style:
-                        TextStyle(fontWeight: FontWeight.w500, fontSize: 25.0),
+                    AppLocalizations.of(context)!.coinconversion,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.w500, fontSize: 25.0),
                   )
                 ],
                 mainAxisAlignment: MainAxisAlignment.center,
               ),
               subtitle: Row(
                 children: [
-                  Text(AppLocalizations.of(context)
-                          ?.sucessfulycoinconversioncompleted ??
-                      "Rever Internationalization")
+                  Text(AppLocalizations.of(context)!
+                      .sucessfulycoinconversioncompleted)
                 ],
                 mainAxisAlignment: MainAxisAlignment.center,
               ))

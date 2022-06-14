@@ -37,7 +37,7 @@ class MaterialAppAndProviderInstancesState
       ],
       supportedLocales: L10n.all,
       onGenerateRoute: RouteGenerator.generateRoute,
-      home: const Scaffold(bottomNavigationBar: BottomNavigationBarWidget()),
+      home: const BottomNavigationBarWidget(),
     );
   }
 }

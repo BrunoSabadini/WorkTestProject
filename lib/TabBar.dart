@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:work_project/WalletPage/WalletAndCryptoLabelsWidget.dart';
+import 'FirstScreen/WalletAndCryptoLabelsWidget.dart';
 import 'Models/Transactions.dart';
 import 'l10n/app_localizations.dart';
 
@@ -14,7 +14,7 @@ class TabBarState extends State<BottomNavigationBarWidget> {
   int _selectedIndex = 0;
 
   static final List<Widget> _widgetOptions = <Widget>[
-    WalletAndCryptoLabelsWidget(),
+    const WalletAndCryptoLabelsWidget(),
     const Text(
       'Home',
     ),
@@ -36,21 +36,19 @@ class TabBarState extends State<BottomNavigationBarWidget> {
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: const Color.fromARGB(255, 3, 0, 0),
         items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(Icons.card_travel),
             // ImageIcon(AssetImage("lib/Icon/warren.png"),
             //       color: Color.fromARGB(255, 254, 4, 4)),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.card_travel),
-            label: AppLocalizations.of(context)?.wallets ??
-                "Rever Internationalization",
+            icon: const Icon(Icons.card_travel),
+            label: AppLocalizations.of(context)!.wallets,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.toll_outlined),
-            label: AppLocalizations.of(context)?.transactions ??
-                "Rever Internationalization",
+            icon: const Icon(Icons.toll_outlined),
+            label: AppLocalizations.of(context)!.transactions,
           ),
         ],
         currentIndex: _selectedIndex,

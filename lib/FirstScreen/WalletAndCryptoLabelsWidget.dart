@@ -6,7 +6,7 @@ import '../StateController.dart';
 import '../l10n/app_localizations.dart';
 
 class WalletAndCryptoLabelsWidget extends StatefulWidget {
-  WalletAndCryptoLabelsWidget({
+  const WalletAndCryptoLabelsWidget({
     Key? key,
   }) : super(key: key);
 
@@ -26,15 +26,32 @@ class WalletAndCryptoLabelsState extends State<WalletAndCryptoLabelsWidget> {
     super.initState();
   }
 
-  String routeNavegation(String abreviation) {
-    if (abreviation == "BTC") {
-      return "/bitcoin";
-    } else if (abreviation == "ETH") {
-      return "/ethereum";
-    } else if (abreviation == "LTC") {
-      return "/litecoin";
-    } else {
-      return "will go to error screen";
+  routeNavegation(String abreviation) {
+    switch (abreviation) {
+      case "BTC":
+        return "/bitcoin";
+      case "ETH":
+        return "/ethereum";
+      case "LTC":
+        return "/litecoin";
+      default:
+        return "will go to error screen";
+    }
+  }
+
+  wichCoinAmount(String symbol) {
+    switch (symbol) {
+      case "BTC":
+        return Provider.of<StateController>(context, listen: true)
+            .bitcoinAmount;
+      case "ETH":
+        return Provider.of<StateController>(context, listen: true)
+            .ethereumAmount;
+      case "LTC":
+        return Provider.of<StateController>(context, listen: true)
+            .litecoinAmount;
+      default:
+        return "will go to error screen";
     }
   }
 
@@ -49,8 +66,8 @@ class WalletAndCryptoLabelsState extends State<WalletAndCryptoLabelsWidget> {
             children: [
               Expanded(
                   child: Text(
-                      AppLocalizations.of(context)?.wallet ??
-                          "Rever Internationalization", // Deixei "Carteira" mesmo em inglês porque ele reconhece que estou usando inglês
+                      AppLocalizations.of(context)!
+                          .wallet, // Deixei "Carteira" mesmo em inglês porque ele reconhece que estou usando inglês
                       style: const TextStyle(
                           fontSize: 29, fontWeight: FontWeight.bold))),
               IconButton(
@@ -100,17 +117,6 @@ class WalletAndCryptoLabelsState extends State<WalletAndCryptoLabelsWidget> {
     );
   }
 
-  double wichCoinAmount(String symbol) {
-    if (symbol == "BTC") {
-      return Provider.of<StateController>(context, listen: true).bitcoinAmount;
-    } else if (symbol == "ETH") {
-      return Provider.of<StateController>(context, listen: true).ethereumAmount;
-    } else if (symbol == "LTC") {
-      return Provider.of<StateController>(context, listen: true).litecoinAmount;
-    }
-    return 0;
-  }
-
   Widget coinsLabel(String symbol, String name, double marketCap) {
     return Card(
       child: InkWell(
@@ -120,7 +126,7 @@ class WalletAndCryptoLabelsState extends State<WalletAndCryptoLabelsWidget> {
           );
         },
         child: ListTile(
-          leading: Icon(Icons.currency_bitcoin, size: 35),
+          leading: const Icon(Icons.currency_bitcoin, size: 35),
           title: Text(symbol),
           subtitle: Text(name),
           trailing: Column(children: [
@@ -146,7 +152,6 @@ class WalletAndCryptoLabelsState extends State<WalletAndCryptoLabelsWidget> {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.hasData) {
             var coinsData = snapshot.data!.dataModel;
-
             return Stack(children: <Widget>[
               ListView(children: <Widget>[
                 walletAmountWidget(),
@@ -168,7 +173,7 @@ class WalletAndCryptoLabelsState extends State<WalletAndCryptoLabelsWidget> {
             return Text('${snapshot.error}');
           }
         }
-        return Center(
+        return const Center(
           child: CircularProgressIndicator(),
         );
       },
