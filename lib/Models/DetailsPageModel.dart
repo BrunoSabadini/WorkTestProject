@@ -193,7 +193,6 @@ class DetailsPageModelState extends State<DetailsPageModelWidget> {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.hasData) {
             name = snapshot.data!.name;
-            // var coinSlug = snapshot.data!.slug;
             valuesAndPercentages = snapshot.data!.values;
             return Scaffold(
                 appBar: AppBar(

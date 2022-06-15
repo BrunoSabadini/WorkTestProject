@@ -4,7 +4,7 @@ import 'package:work_project/TabBar.dart';
 import 'package:work_project/l10n/app_localizations.dart';
 import 'package:work_project/routeGenerator.dart';
 
-import '../StateController.dart';
+import '../../StateController.dart';
 
 class MaterialAppAndProviderInstancesWidget extends StatefulWidget {
   const MaterialAppAndProviderInstancesWidget({Key? key}) : super(key: key);

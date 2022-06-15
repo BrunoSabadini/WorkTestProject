@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:intl/intl.dart';
 import 'BigDataModel.dart';
 
 class Repository {

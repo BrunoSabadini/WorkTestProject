@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../StateController.dart';
+import '../../l10n/app_localizations.dart';
 import '../Models/MessariAPI/AllAssetsBigDataModel.dart';
 import '../Models/MessariAPI/AllAssetsRepository.dart';
-import '../StateController.dart';
-import '../l10n/app_localizations.dart';
 
 class WalletAndCryptoLabelsWidget extends StatefulWidget {
   const WalletAndCryptoLabelsWidget({
@@ -39,7 +39,7 @@ class WalletAndCryptoLabelsState extends State<WalletAndCryptoLabelsWidget> {
     }
   }
 
-  wichCoinAmount(String symbol) {
+  double wichCoinAmount(String symbol) {
     switch (symbol) {
       case "BTC":
         return Provider.of<StateController>(context, listen: true)
@@ -51,7 +51,7 @@ class WalletAndCryptoLabelsState extends State<WalletAndCryptoLabelsWidget> {
         return Provider.of<StateController>(context, listen: true)
             .litecoinAmount;
       default:
-        return "will go to error screen";
+        return 0.010101010101;
     }
   }
 
@@ -126,7 +126,13 @@ class WalletAndCryptoLabelsState extends State<WalletAndCryptoLabelsWidget> {
           );
         },
         child: ListTile(
-          leading: const Icon(Icons.currency_bitcoin, size: 35),
+          leading: symbol == "BTC"
+              ? const Icon(Icons.currency_bitcoin, size: 35)
+              : symbol == "ETH"
+                  ? const Icon(Icons.e_mobiledata_rounded, size: 45)
+                  : symbol == "LTC"
+                      ? const Icon(Icons.currency_lira_outlined, size: 35)
+                      : const Icon(Icons.currency_bitcoin, size: 35),
           title: Text(symbol),
           subtitle: Text(name),
           trailing: Column(children: [
@@ -134,7 +140,8 @@ class WalletAndCryptoLabelsState extends State<WalletAndCryptoLabelsWidget> {
                 .amountFunc(wichCoinAmount(symbol))),
             (Provider.of<StateController>(context, listen: true)
                 .greenOrRedBackground(
-                    text: "$marketCap", backgroundColorVerification: marketCap))
+                    text: marketCap.toStringAsFixed(2),
+                    backgroundColorVerification: marketCap))
           ]),
           isThreeLine: true,
           contentPadding:
@@ -157,16 +164,25 @@ class WalletAndCryptoLabelsState extends State<WalletAndCryptoLabelsWidget> {
                 walletAmountWidget(),
                 Tooltip(
                     message: "Go to BTC details",
-                    child:
-                        coinsLabel(coinsData[0].symbol, coinsData[0].name, 10)),
+                    child: coinsLabel(
+                        coinsData[0].symbol,
+                        coinsData[0].name,
+                        coinsData[0].metrics["market_data"]
+                            ["percent_change_eth_last_24_hours"])),
                 Tooltip(
                     message: "Go to ETH details",
-                    child:
-                        coinsLabel(coinsData[1].symbol, coinsData[1].name, 10)),
+                    child: coinsLabel(
+                        coinsData[1].symbol,
+                        coinsData[1].name,
+                        coinsData[1].metrics["market_data"]
+                            ["percent_change_eth_last_24_hours"])),
                 Tooltip(
                     message: "Go to LTC details",
                     child: coinsLabel(
-                        coinsData[19].symbol, coinsData[19].name, 10))
+                        coinsData[19].symbol,
+                        coinsData[19].name,
+                        coinsData[19].metrics["market_data"]
+                            ["percent_change_eth_last_24_hours"]))
               ])
             ]);
           } else if (snapshot.hasError) {

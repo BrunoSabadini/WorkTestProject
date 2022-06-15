@@ -110,7 +110,7 @@ class StateController with ChangeNotifier {
               borderRadius: BorderRadius.all(Radius.circular(10.0)),
               color: Color.fromARGB(157, 255, 136, 136)),
           child: Text(
-            "-" + text + "%",
+            text + "%",
             textAlign: TextAlign.center,
             style: const TextStyle(fontSize: 13.0),
           ));
@@ -125,22 +125,19 @@ class StateController with ChangeNotifier {
     double fontSize = 20,
     String routeNavigator = "Go to Error Screen",
   }) {
-    return SizedBox(
-        width: 200,
-        child: ElevatedButton(
-          child: Text(text),
-          onPressed: () {
-            Navigator.of(context, rootNavigator: true)
-                .pushNamed(routeNavigator);
-          },
-          style: ElevatedButton.styleFrom(
-              onPrimary: textButtonColor,
-              primary: backgroundButtonColor,
-              textStyle: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.bold,
-              )),
-        ));
+    return ElevatedButton(
+      child: Text(text),
+      onPressed: () {
+        Navigator.of(context, rootNavigator: true).pushNamed(routeNavigator);
+      },
+      style: ElevatedButton.styleFrom(
+          onPrimary: textButtonColor,
+          primary: backgroundButtonColor,
+          textStyle: TextStyle(
+            fontSize: fontSize,
+            fontWeight: FontWeight.bold,
+          )),
+    );
   }
 
   void switchShowHide() {
