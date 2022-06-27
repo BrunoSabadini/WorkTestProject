@@ -143,14 +143,11 @@ class CoinsConversionState extends State<CoinsConversionWidget> {
         body: ListView(children: <Widget>[
       Padding(
           padding: const EdgeInsets.fromLTRB(20, 0, 0, 30),
-          child: textTitles(
-              AppLocalizations.of(context)?.coinconversion ??
-                  "Rever Internationalization",
+          child: textTitles(AppLocalizations.of(context)!.coinconversion,
               fontsize: 30)),
       Padding(
           padding: const EdgeInsets.fromLTRB(20, 0, 0, 30),
-          child: textTitles(AppLocalizations.of(context)?.convertcoin ??
-              "Rever Internationalization")),
+          child: textTitles(AppLocalizations.of(context)!.convertcoin)),
       Padding(
           padding: const EdgeInsets.fromLTRB(20, 0, 0, 30),
           child: DropdownButton(
@@ -180,8 +177,7 @@ class CoinsConversionState extends State<CoinsConversionWidget> {
           ])),
       Padding(
           padding: const EdgeInsets.fromLTRB(20, 70, 0, 30),
-          child: textTitles(AppLocalizations.of(context)?.toreceivein ??
-              "Rever Internationalization")),
+          child: textTitles(AppLocalizations.of(context)!.toreceivein)),
       Padding(
           padding: const EdgeInsets.fromLTRB(20, 0, 0, 30),
           child: DropdownButton(
@@ -206,10 +202,7 @@ class CoinsConversionState extends State<CoinsConversionWidget> {
         child: Row(children: [
           Expanded(
               child: Provider.of<StateController>(context, listen: true)
-                  .elevatedButton(
-                      context,
-                      AppLocalizations.of(context)?.cancel ??
-                          "Rever Internationalization",
+                  .elevatedButton(context, AppLocalizations.of(context)!.cancel,
                       backgroundButtonColor:
                           const Color.fromARGB(255, 255, 255, 255),
                       textButtonColor: const Color.fromARGB(255, 221, 48, 85),
@@ -218,9 +211,7 @@ class CoinsConversionState extends State<CoinsConversionWidget> {
           Expanded(
               child: Provider.of<StateController>(context, listen: true)
                   .elevatedButton(
-                      context,
-                      AppLocalizations.of(context)?.confirm ??
-                          "Rever Internationalization",
+                      context, AppLocalizations.of(context)!.confirm,
                       routeNavigator: '/completedConversion')),
         ]),
       )

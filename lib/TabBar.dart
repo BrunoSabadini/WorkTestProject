@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:work_project/WalletPage/WalletListOrganization.dart';
+import 'FirstScreen/WalletAndCryptoLabelsWidget.dart';
 import 'Models/Transactions.dart';
 import 'l10n/app_localizations.dart';
 
-class TabBarState extends State<TabBarWidget> {
+class BottomNavigationBarWidget extends StatefulWidget {
+  const BottomNavigationBarWidget({Key? key}) : super(key: key);
+
+  @override
+  State<BottomNavigationBarWidget> createState() => TabBarState();
+}
+
+class TabBarState extends State<BottomNavigationBarWidget> {
   int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+
   static final List<Widget> _widgetOptions = <Widget>[
-    ListOrganizationWidget(),
+    const WalletAndCryptoLabelsWidget(),
     const Text(
       'Home',
-      style: optionStyle,
     ),
     const TransactionsWidget(),
   ];
@@ -31,21 +36,19 @@ class TabBarState extends State<TabBarWidget> {
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: const Color.fromARGB(255, 3, 0, 0),
         items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(Icons.card_travel),
             // ImageIcon(AssetImage("lib/Icon/warren.png"),
-            //       color: Color.fromARGB(255, 254, 4, 4)),
+            //     color: Color.fromARGB(255, 254, 4, 4)),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.card_travel),
-            label: AppLocalizations.of(context)?.wallets ??
-                "Rever Internationalization",
+            icon: const Icon(Icons.card_travel),
+            label: AppLocalizations.of(context)!.wallets,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.toll_outlined),
-            label: AppLocalizations.of(context)?.transactions ??
-                "Rever Internationalization",
+            icon: const Icon(Icons.toll_outlined),
+            label: AppLocalizations.of(context)!.transactions,
           ),
         ],
         currentIndex: _selectedIndex,
@@ -53,11 +56,4 @@ class TabBarState extends State<TabBarWidget> {
       ),
     );
   }
-}
-
-class TabBarWidget extends StatefulWidget {
-  const TabBarWidget({Key? key}) : super(key: key);
-
-  @override
-  State<TabBarWidget> createState() => TabBarState();
 }

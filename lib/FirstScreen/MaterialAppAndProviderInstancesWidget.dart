@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:work_project/WalletPage/WalletListOrganization.dart';
 import 'package:work_project/TabBar.dart';
 import 'package:work_project/l10n/app_localizations.dart';
 import 'package:work_project/routeGenerator.dart';
 
-import '../StateController.dart';
+import '../../StateController.dart';
 
-class HomeScreenStructureState extends State<HomeScreenStructureWidget> {
+class MaterialAppAndProviderInstancesWidget extends StatefulWidget {
+  const MaterialAppAndProviderInstancesWidget({Key? key}) : super(key: key);
+
+  @override
+  State<MaterialAppAndProviderInstancesWidget> createState() =>
+      MaterialAppAndProviderInstancesState();
+}
+
+class MaterialAppAndProviderInstancesState
+    extends State<MaterialAppAndProviderInstancesWidget> {
   final controller = StateController();
 
   @override
@@ -29,18 +37,9 @@ class HomeScreenStructureState extends State<HomeScreenStructureWidget> {
       ],
       supportedLocales: L10n.all,
       onGenerateRoute: RouteGenerator.generateRoute,
-      home: Scaffold(
-          body: ListOrganizationWidget(),
-          bottomNavigationBar: const TabBarWidget()),
+      home: const BottomNavigationBarWidget(),
     );
   }
-}
-
-class HomeScreenStructureWidget extends StatefulWidget {
-  const HomeScreenStructureWidget({Key? key}) : super(key: key);
-
-  @override
-  State<HomeScreenStructureWidget> createState() => HomeScreenStructureState();
 }
 
 class L10n {

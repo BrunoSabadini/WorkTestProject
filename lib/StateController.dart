@@ -5,9 +5,8 @@ class StateController with ChangeNotifier {
   IconData eyeShow = Icons.visibility_rounded;
   IconData eyeHide = Icons.visibility_off_rounded;
   bool showHide = false;
-  String showWallet = "R\$ 87.000,00";
   String hideWallet = "----------------";
-  String profit = "+R\$ 100,00";
+  String profit = "+\$ 100,00";
   String remuneration = "(100% do CDI)";
   double bitcoinCurrentValue = 1000;
   double litecoinCurrentValue = 2000;
@@ -27,7 +26,7 @@ class StateController with ChangeNotifier {
     String title,
     double trailingValue, {
     Widget? subtitle,
-    String whatStringReturn = "R\$",
+    String whatStringReturn = "\$",
     num? backgroundColorVerification,
     String? textTest,
     Icon? icon,
@@ -111,7 +110,7 @@ class StateController with ChangeNotifier {
               borderRadius: BorderRadius.all(Radius.circular(10.0)),
               color: Color.fromARGB(157, 255, 136, 136)),
           child: Text(
-            "-" + text + "%",
+            text + "%",
             textAlign: TextAlign.center,
             style: const TextStyle(fontSize: 13.0),
           ));
@@ -126,22 +125,19 @@ class StateController with ChangeNotifier {
     double fontSize = 20,
     String routeNavigator = "Go to Error Screen",
   }) {
-    return SizedBox(
-        width: 200,
-        child: ElevatedButton(
-          child: Text(text),
-          onPressed: () {
-            Navigator.of(context, rootNavigator: true)
-                .pushNamed(routeNavigator);
-          },
-          style: ElevatedButton.styleFrom(
-              onPrimary: textButtonColor,
-              primary: backgroundButtonColor,
-              textStyle: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.bold,
-              )),
-        ));
+    return ElevatedButton(
+      child: Text(text),
+      onPressed: () {
+        Navigator.of(context, rootNavigator: true).pushNamed(routeNavigator);
+      },
+      style: ElevatedButton.styleFrom(
+          onPrimary: textButtonColor,
+          primary: backgroundButtonColor,
+          textStyle: TextStyle(
+            fontSize: fontSize,
+            fontWeight: FontWeight.bold,
+          )),
+    );
   }
 
   void switchShowHide() {
@@ -166,8 +162,8 @@ class StateController with ChangeNotifier {
   }
 
   String numberFormatConversion(double value,
-      {String whatStringReturn = "R\$"}) {
-    return intl.NumberFormat.currency(locale: 'pt_BR', name: whatStringReturn)
+      {String whatStringReturn = "\$"}) {
+    return intl.NumberFormat.currency(locale: 'en_US', name: whatStringReturn)
         .format(value);
   }
 

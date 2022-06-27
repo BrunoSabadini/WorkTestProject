@@ -11,9 +11,7 @@ class TransactionsState extends State<TransactionsWidget> {
       ListView(children: <Widget>[
         Padding(
             padding: const EdgeInsets.fromLTRB(20, 60, 0, 10),
-            child: Text(
-                AppLocalizations.of(context)?.informations ??
-                    "Rever Internationalization",
+            child: Text(AppLocalizations.of(context)!.informations,
                 style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
