@@ -16,9 +16,9 @@ class GetCryptoListingUseCase {
     return response;
   }
 
-  Future<BigDataModel> start() async {
+  Future<BigDataModel> start(String symbol) async {
     await Future.delayed(const Duration(seconds: 2));
-    final response = await repository.getAllChartsInfo();
+    final response = await repository.getAllChartsInfo(symbol);
 
     return response;
   }
@@ -35,10 +35,11 @@ final getCryptoListingUseCase = Provider((ref) {
 });
 
 final cryptoListingProvider =
-    FutureProvider<AllAssetsBigDataModel>((ref, arg) async {
-  return ref.read(getCryptoListingUseCase(arg)).execute();
+    FutureProvider<AllAssetsBigDataModel>((ref) async {
+  return ref.read(getCryptoListingUseCase).execute();
 });
 
-final chartsListingProvider = FutureProvider<BigDataModel>((ref) async {
-  return ref.read(getCryptoListingUseCase).start();
+final chartsListingProvider = FutureProvider.autoDispose
+    .family<BigDataModel, String>((ref, symbol) async {
+  return ref.read(getCryptoListingUseCase).start(symbol);
 });

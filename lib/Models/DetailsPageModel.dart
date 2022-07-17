@@ -51,16 +51,7 @@ class DetailsPageModelState
   }
 
   endPointPickAccordingToSymbol() {
-    switch (widget.symbol) {
-      case "BTC":
-        return 'https://data.messari.io/api/v1/assets/btc/metrics/price/time-series?end=${filterEndPointStartDate()}&interval=1d';
-      case "ETH":
-        return 'https://data.messari.io/api/v1/assets/eth/metrics/price/time-series?end=${filterEndPointStartDate()}&interval=1d';
-      case "LTC":
-        return 'https://data.messari.io/api/v1/assets/ltc/metrics/price/time-series?end=${filterEndPointStartDate()}&interval=1d';
-      default:
-        "No symbol found";
-    }
+    return 'https://data.messari.io/api/v1/assets/${widget.symbol}/metrics/price/time-series?end=${filterEndPointStartDate()}&interval=1d';
   }
 
   List<ChartSampleData> dateFilter(
@@ -195,11 +186,12 @@ class DetailsPageModelState
     );
   }
 
-  //  name = snapshot.data!.name;
+  //  name = snapshot.ata!.name;
   //         valuesAndPercentages = snapshot.data!.values;
   @override
   Widget build(BuildContext context) {
-    final getCryptoListingProvider = ref.watch(chartsListingProvider);
+    final getCryptoListingProvider =
+        ref.watch(chartsListingProvider(widget.symbol));
     return getCryptoListingProvider.when(
         data: (data) => Scaffold(
             appBar: AppBar(

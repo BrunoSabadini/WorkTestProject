@@ -10,9 +10,9 @@ class CryptoListingEndpoint {
     return _dio.get("/v2/assets");
   }
 
-  Future<Response> getAllChartsInfo() {
+  Future<Response> getAllChartsInfo(String symbol) {
     return _dio.get(
-        "/v1/assets/BTC/metrics/price/time-series?end=2022-06-01&interval=1d");
+        "/v1/assets/$symbol/metrics/price/time-series?end=2022-06-01&interval=1d");
   }
 
   String filterEndPointStartDate() {

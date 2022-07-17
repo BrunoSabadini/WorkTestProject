@@ -12,8 +12,8 @@ class CryptoListingRepository {
     return AllAssetsBigDataModel.fromJson((result.data));
   }
 
-  Future<BigDataModel> getAllChartsInfo() async {
-    final result = await cryptoListingEndpoint.getAllChartsInfo();
+  Future<BigDataModel> getAllChartsInfo(String symbol) async {
+    final result = await cryptoListingEndpoint.getAllChartsInfo(symbol);
     return BigDataModel.fromJson(result.data);
   }
 }
