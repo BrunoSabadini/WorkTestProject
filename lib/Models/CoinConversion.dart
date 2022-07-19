@@ -21,6 +21,7 @@ class CoinsConversionState extends State<CoinsConversionWidget> {
   String textToConversionField = "Montante a ser convertido";
   String textToConvertedField = "Montante após conversão";
   int myIntVar = 0;
+
   String recieveTypedFieldValues = "";
 
   var items = [
@@ -98,6 +99,7 @@ class CoinsConversionState extends State<CoinsConversionWidget> {
             child: Material(
                 child: InkWell(
                     onTap: () {
+                      print("sss");
                       Provider.of<StoreStateController>(context, listen: true)
                           .percentageToConvert = percentage;
                       receiveCoinAmountAccordingToPercentage =

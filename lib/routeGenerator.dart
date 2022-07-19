@@ -12,6 +12,12 @@ Widget changeNotifierProvider(String symbol) {
       child: DetailsPageModelWidget(symbol: symbol));
 }
 
+Widget changeNotifierProvider2() {
+  return ChangeNotifierProvider(
+      create: (context) => StoreStateController(),
+      child: const CoinsConversionWidget());
+}
+
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -24,7 +30,7 @@ class RouteGenerator {
           builder: (_) => changeNotifierProvider('BTC'),
         );
       case '/conversion':
-        return MaterialPageRoute(builder: (_) => const CoinsConversionWidget());
+        return MaterialPageRoute(builder: (_) => changeNotifierProvider2());
       case '/completedConversion':
         return MaterialPageRoute(
             builder: (_) => const CompletedConversionScreen());

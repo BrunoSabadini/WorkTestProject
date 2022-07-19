@@ -30,6 +30,7 @@ class DetailsPageModelState
   double minValue = 0;
   double maxValue = 0;
   String? name;
+  int numberOfSpots = 50;
 
   // late Future<BigDataModel> _futureCoins;
   // late Repository repository;
@@ -103,9 +104,10 @@ class DetailsPageModelState
     return value.toDouble();
   }
 
-  void callChartData(int numberOfSpots, List<dynamic> valuesAndPercentages) {
+  void callChartData(int nOfSpots, List<dynamic> valuesAndPercentages) {
     setState(() {
-      chartSpots = dateFilter(numberOfSpots, valuesAndPercentages);
+      numberOfSpots = nOfSpots;
+      // chartSpots = dateFilter(numberOfSpots, valuesAndPercentages);
       minValue = calculateMinAndMaxValue("min");
       maxValue = calculateMinAndMaxValue("max");
     });
@@ -167,7 +169,7 @@ class DetailsPageModelState
   }
 
   List<ChartSampleData> sampleData(BigDataModel data) {
-    return dateFilter(50, data.values);
+    return dateFilter(numberOfSpots, data.values);
   }
 
   chartButton(
@@ -322,20 +324,22 @@ class DetailsPageModelState
                     border: Border(
                         top: BorderSide(
                             width: 1.1, color: Color.fromARGB(60, 0, 0, 0)))),
-                child: Provider.of<StoreStateController>(context, listen: true)
+                child: Provider.of<StoreStateController>(context, listen: false)
                     .listTile((name ?? ""),
                         currentCoinValue(data.values.last[4].toDouble()),
                         subtitle:
                             Text(AppLocalizations.of(context)!.actualvalue)),
               ),
-              Provider.of<StoreStateController>(context, listen: true).listTile(
-                  AppLocalizations.of(context)!.marketcap, 10,
-                  backgroundColorVerification: 10, whatStringReturn: ""),
-              Provider.of<StoreStateController>(context, listen: true).listTile(
-                  AppLocalizations.of(context)!.minimumvalue, minValue),
-              Provider.of<StoreStateController>(context, listen: true).listTile(
-                  AppLocalizations.of(context)!.maximumvalue, maxValue),
-              Provider.of<StoreStateController>(context, listen: true)
+              Provider.of<StoreStateController>(context, listen: false)
+                  .listTile(AppLocalizations.of(context)!.marketcap, 10,
+                      backgroundColorVerification: 10, whatStringReturn: ""),
+              Provider.of<StoreStateController>(context, listen: false)
+                  .listTile(
+                      AppLocalizations.of(context)!.minimumvalue, minValue),
+              Provider.of<StoreStateController>(context, listen: false)
+                  .listTile(
+                      AppLocalizations.of(context)!.maximumvalue, maxValue),
+              Provider.of<StoreStateController>(context, listen: false)
                   .elevatedButton(context, "Converter moeda",
                       routeNavigator: "/conversion"),
             ])),
