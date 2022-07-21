@@ -4,7 +4,9 @@ import 'package:provider/provider.dart';
 import 'package:work_project/StateController.dart';
 import '../../l10n/app_localizations.dart';
 
+import '../TabBar.dart';
 import '../useCases/crypto_listing_use_case.dart';
+import 'MaterialAppAndProviderInstancesWidget.dart';
 
 class WalletAndCryptoLabelsWidget extends riverpod.ConsumerStatefulWidget {
   const WalletAndCryptoLabelsWidget({
@@ -103,8 +105,12 @@ class WalletAndCryptoLabelsState
     return Card(
       child: InkWell(
         onTap: () {
-          Navigator.of(context, rootNavigator: true).pushNamed(
-            "/" + slug,
+          Navigator.pushNamed(
+            context,
+            BottomNavigationBarWidget.selectedCriptoScreen,
+            arguments: ScreenArguments(
+              symbol,
+            ),
           );
         },
         child: ListTile(
@@ -153,46 +159,5 @@ class WalletAndCryptoLabelsState
             ]),
         error: (Object error, StackTrace? stackTrace) => const Text('Erro'),
         loading: () => const CircularProgressIndicator());
-    // return FutureBuilder<AllAssetsBigDataModel>(
-    //   future: _futureCoins,
-    //   builder: (context, snapshot) {
-    //     if (snapshot.connectionState == ConnectionState.done) {
-    //       if (snapshot.hasData) {
-    //         var coinsData = snapshot.data!.dataModel;
-    //         return Stack(children: <Widget>[
-    //           ListView(children: <Widget>[
-    //             walletAmountWidget(),
-    //             Tooltip(
-    //                 message: "Go to BTC details",
-    //                 child: coinsLabel(
-    //                     coinsData[0].symbol,
-    //                     coinsData[0].name,
-    //                     coinsData[0].metrics["market_data"]
-    //                         ["percent_change_eth_last_24_hours"])),
-    //             Tooltip(
-    //                 message: "Go to ETH details",
-    //                 child: coinsLabel(
-    //                     coinsData[1].symbol,
-    //                     coinsData[1].name,
-    //                     coinsData[1].metrics["market_data"]
-    //                         ["percent_change_eth_last_24_hours"])),
-    //             Tooltip(
-    //                 message: "Go to LTC details",
-    //                 child: coinsLabel(
-    //                     coinsData[19].symbol,
-    //                     coinsData[19].name,
-    //                     coinsData[19].metrics["market_data"]
-    //                         ["percent_change_eth_last_24_hours"]))
-    //           ])
-    //         ]);
-    //       } else if (snapshot.hasError) {
-    //         return Text('${snapshot.error}');
-    //       }
-    //     }
-    //     return const Center(
-    //       child: CircularProgressIndicator(),
-    //     );
-    //   },
-    // );
   }
 }

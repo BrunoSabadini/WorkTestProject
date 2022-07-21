@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:work_project/Models/CompletedConversionScreen.dart';
+import 'package:work_project/Models/DetailsPageModel.dart';
 import 'package:work_project/TabBar.dart';
 import 'package:work_project/l10n/app_localizations.dart';
-import 'package:work_project/routeGenerator.dart';
 
 import '../../StateController.dart';
+import '../Models/CoinConversion.dart';
 
 class MaterialAppAndProviderInstancesWidget extends StatefulWidget {
   const MaterialAppAndProviderInstancesWidget({Key? key}) : super(key: key);
@@ -20,20 +22,35 @@ class MaterialAppAndProviderInstancesState
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: L10n.all,
-      onGenerateRoute: RouteGenerator.generateRoute,
-      home: ChangeNotifierProvider(
-        create: (context) => StoreStateController(),
-        child: const BottomNavigationBarWidget(),
-      ),
-    );
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: L10n.all,
+        initialRoute: '/',
+        routes: {
+          '/': (context) => ChangeNotifierProvider(
+                create: (context) => StoreStateController(),
+                child: const BottomNavigationBarWidget(),
+              ),
+          BottomNavigationBarWidget.selectedCriptoScreen: (context) =>
+              ChangeNotifierProvider(
+                  create: (context) => StoreStateController(),
+                  child: const DetailsPageModelWidget()),
+          'coinConversion': (context) => ChangeNotifierProvider(
+              create: (context) => StoreStateController(),
+              child: const CoinsConversionWidget()),
+          '/completedConversion': (context) => const CompletedConversionScreen()
+        });
   }
+}
+
+class ScreenArguments {
+  final String symbol;
+
+  ScreenArguments(this.symbol);
 }
 
 class L10n {

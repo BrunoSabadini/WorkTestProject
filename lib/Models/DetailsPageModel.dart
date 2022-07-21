@@ -5,16 +5,17 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:work_project/StateController.dart';
+import '../FirstScreen/MaterialAppAndProviderInstancesWidget.dart';
 import '../l10n/app_localizations.dart';
 import '../useCases/crypto_listing_use_case.dart';
 import 'MessariAPI/BigDataModel.dart';
 
 class DetailsPageModelWidget extends riverpod.ConsumerStatefulWidget {
-  String symbol;
+  // String symbol;
 
-  DetailsPageModelWidget({
+  const DetailsPageModelWidget({
     Key? key,
-    required this.symbol,
+    // required this.symbol,
   }) : super(key: key);
 
   @override
@@ -31,18 +32,7 @@ class DetailsPageModelState
   double maxValue = 0;
   String? name;
   int numberOfSpots = 50;
-
-  // late Future<BigDataModel> _futureCoins;
-  // late Repository repository;
-
-  // @override
-  // initState() {
-  //   super.initState();
-  //   // chartSpots = dateFilter(50);
-  //   // repository = Repository(endPointPickAccordingToSymbol());
-  //   // _futureCoins = repository.getCoins();
-  //   super.initState();
-  // }
+  String symbol = '';
 
   String filterEndPointStartDate() {
     final DateTime nowTime = DateTime.now();
@@ -52,7 +42,7 @@ class DetailsPageModelState
   }
 
   endPointPickAccordingToSymbol() {
-    return 'https://data.messari.io/api/v1/assets/${widget.symbol}/metrics/price/time-series?end=${filterEndPointStartDate()}&interval=1d';
+    return 'https://data.messari.io/api/v1/assets/$symbol/metrics/price/time-series?end=${filterEndPointStartDate()}&interval=1d';
   }
 
   List<ChartSampleData> dateFilter(
@@ -77,7 +67,7 @@ class DetailsPageModelState
 
 //valuesAndPercentages!.last[4].toDouble();
   currentCoinValue(num coinValue) {
-    switch (widget.symbol) {
+    switch (symbol) {
       case "BTC":
         return coinValue;
       case "ETH":
@@ -188,12 +178,11 @@ class DetailsPageModelState
     );
   }
 
-  //  name = snapshot.ata!.name;
-  //         valuesAndPercentages = snapshot.data!.values;
   @override
   Widget build(BuildContext context) {
-    final getCryptoListingProvider =
-        ref.watch(chartsListingProvider(widget.symbol));
+    final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
+    symbol = args.symbol;
+    final getCryptoListingProvider = ref.watch(chartsListingProvider(symbol));
     return getCryptoListingProvider.when(
         data: (data) => Scaffold(
             appBar: AppBar(
@@ -341,7 +330,7 @@ class DetailsPageModelState
                       AppLocalizations.of(context)!.maximumvalue, maxValue),
               Provider.of<StoreStateController>(context, listen: false)
                   .elevatedButton(context, "Converter moeda",
-                      routeNavigator: "/conversion"),
+                      routeNavigator: 'coinConversion'),
             ])),
         error: (Object error, StackTrace? stackTrace) => const Text('Erro'),
         loading: () => const CircularProgressIndicator());

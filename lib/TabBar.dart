@@ -5,6 +5,7 @@ import 'l10n/app_localizations.dart';
 
 class BottomNavigationBarWidget extends StatefulWidget {
   const BottomNavigationBarWidget({Key? key}) : super(key: key);
+  static const selectedCriptoScreen = '/selected_cripto';
 
   @override
   State<BottomNavigationBarWidget> createState() => TabBarState();

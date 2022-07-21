@@ -99,7 +99,6 @@ class CoinsConversionState extends State<CoinsConversionWidget> {
             child: Material(
                 child: InkWell(
                     onTap: () {
-                      print("sss");
                       Provider.of<StoreStateController>(context, listen: true)
                           .percentageToConvert = percentage;
                       receiveCoinAmountAccordingToPercentage =
